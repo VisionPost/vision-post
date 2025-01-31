@@ -14,6 +14,7 @@ export const authOptions: AuthOptions = {
                     name: data.name,
                     email: data.email,
                     image: data.image,
+                    githubUsername: data.githubUsername,
                 },
             });
         },
@@ -32,7 +33,11 @@ export const authOptions: AuthOptions = {
       ],
       secret: process.env.NEXTAUTH_SECRET,
       callbacks: {
-        async signIn() {
+        async signIn({ user, account, profile}) {
+            if(account?.provider === "github" && profile) {
+                const githubProfile = profile as { login: string };
+                user.githubUsername = githubProfile.login;
+            };
             return true;
         },
         async jwt({ token }) {

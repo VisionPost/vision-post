@@ -38,6 +38,7 @@ export const authOptions: AuthOptions = {
                 const githubProfile = profile as { login: string };
                 user.githubUsername = githubProfile.login;
             };
+            console.log(user);
             return true;
         },
         async jwt({ token }) {
@@ -51,7 +52,7 @@ export const authOptions: AuthOptions = {
 
       events: {
         async createUser({ user }) {
-            console.log("user created", user);
+            console.log(user);
         }
       }
 };

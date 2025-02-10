@@ -4,41 +4,47 @@ import { NextRequest, NextResponse } from "next/server";
 export async function middleware(req: NextRequest) {
     try {
         const token = await getToken({ req });
-        const url = req.nextUrl;
+        const url = req.nextUrl.clone();
 
         if(!token) {
-            url.pathname = '/auth/signin';
-            return NextResponse.redirect(url);
+            return NextResponse.redirect(new URL('/auth/signin', req.url));
         };
-
-        if (url.pathname.startsWith('/onboarding/')) {
-            return NextResponse.next();
-        }
 
         const response = await fetch(`${process.env.NEXTAUTH_URL}/api/user/${token.sub}`);
 
         if(!response.ok) {
             if(response.status === 404) {
-                url.pathname = '/auth/signin';
-                return NextResponse.redirect(url);
-            }
+                return NextResponse.redirect(new URL('/auth/signin', req.url));
+            };
         };
 
         const user = await response.json();
-        const { onBoardingStep, isOnboarded } = user;
+        const {onBoardingStep, isOnboarded } = user;
 
-        if(!isOnboarded) {
-            url.pathname = `/onboarding/${onBoardingStep}`;
-            return NextResponse.redirect(url);
+        console.log(onBoardingStep, isOnboarded);
+
+        if (isOnboarded && url.pathname.startsWith('/onboarding/')) {
+            return NextResponse.redirect(new URL('/dashboard', req.url));
         };
+
+        if (!isOnboarded) {
+            if (url.pathname.startsWith('/onboarding/')) {
+                const requestedStep = parseInt(url.pathname.split('/').pop() || '1');
+                
+                if (requestedStep !== onBoardingStep) {
+                    return NextResponse.redirect(new URL(`/onboarding/${onBoardingStep}`, req.url));
+                }
+            } else {
+                return NextResponse.redirect(new URL(`/onboarding/${onBoardingStep}`, req.url));
+            }
+        }
 
         return NextResponse.next();
     } catch (error) {
-        const url = req.nextUrl;
-        url.pathname = "/error";
-        return NextResponse.redirect(url)
+        console.error("Error:", error);
+        return NextResponse.redirect(new URL('/error', req.url));
     }
-}
+};
 
 export const config = {
     matcher: ['/dashboard/:path*', '/onboarding/:path*'],

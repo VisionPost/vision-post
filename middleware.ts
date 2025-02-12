@@ -23,7 +23,7 @@ export async function middleware(req: NextRequest) {
 
         console.log(onBoardingStep, isOnboarded);
 
-        if (isOnboarded && url.pathname.startsWith('/onboarding/')) {
+        if (isOnboarded && url.pathname.startsWith('/onboarding')) {
             return NextResponse.redirect(new URL('/dashboard', req.url));
         };
 

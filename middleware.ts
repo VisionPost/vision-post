@@ -13,9 +13,10 @@ export async function middleware(req: NextRequest) {
         const response = await fetch(`${process.env.NEXTAUTH_URL}/api/user/${token.sub}`);
 
         if(!response.ok) {
-            if(response.status === 404) {
+            if(response.status === 404 || response.status === 400) {
                 return NextResponse.redirect(new URL('/auth/signin', req.url));
             };
+            return NextResponse.redirect(new URL('/error', req.url));
         };
 
         const user = await response.json();
@@ -40,8 +41,8 @@ export async function middleware(req: NextRequest) {
         }
 
         return NextResponse.next();
-    } catch (error) {
-        console.error("Error:", error);
+    } catch (error) {        
+        console.error("Middleware Error:", error);
         return NextResponse.redirect(new URL('/error', req.url));
     }
 };

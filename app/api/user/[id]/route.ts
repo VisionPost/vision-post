@@ -1,24 +1,35 @@
 import { prisma } from "@/app/lib/db";
 import { NextRequest, NextResponse } from "next/server";
-import { Prisma } from "@prisma/client"
+import { Prisma } from "@prisma/client";
+import { getToken } from "next-auth/jwt";
 
 interface RouteParams {
     params: Promise<{ id: string }>;
 };
 
 export async function GET(req: NextRequest, { params }: RouteParams) {
-    try {
+    try {    
+    const token = await getToken({ req });
+    console.log(token);
+    if(!token || !token.sub) {
+        return NextResponse.json({ error: "Unauthorized access" }, { status: 401 });
+    };
+
     const { id: userId } = await params;
     
     if(!userId) {
         return NextResponse.json({ error: "User ID is required" }, { status: 400 });
     };
 
+    if(token.sub !== userId) {
+        return NextResponse.json({ error: "Forbidden: Access denied" }, { status: 403 });
+    };
+
     const user = await prisma.user.findUnique({
         where: { id: userId },
     });
     
-    if(user === null) {
+    if(!user) {
         return NextResponse.json({ error: "User not found" }, { status: 404 });
     };
 

@@ -6,16 +6,36 @@ export async function middleware(req: NextRequest) {
         const token = await getToken({ req });
         const url = req.nextUrl.clone();
 
-        if(!token) {
+        if(!token || !token.sub) {
             return NextResponse.redirect(new URL('/auth/signin', req.url));
         };
-
-        const response = await fetch(`${process.env.NEXTAUTH_URL}/api/user/${token.sub}`);
+        console.log(token)
+        const response = await fetch(`${process.env.NEXTAUTH_URL}/api/user/${token.sub}`, {
+            method: 'GET',
+            headers: {
+                'Content-Type': 'application/json',
+                'Cookie': req.headers.get('cookie') || '',
+            },
+        });
 
         if(!response.ok) {
-            if(response.status === 404 || response.status === 400) {
+            const errorData = await response.json();
+
+            if(response.status === 401 || response.status === 403) {
+                console.error("Unauthorized or Forbidden", errorData.error);
                 return NextResponse.redirect(new URL('/auth/signin', req.url));
             };
+
+            if(response.status === 404) {
+                console.error("User not found", errorData.error);
+                return NextResponse.redirect(new URL('/auth/signin', req.url));
+            };
+
+            if(response.status === 400) {
+                console.error("Bad request", errorData.error);
+                return NextResponse.redirect(new URL('/auth/signin', req.url));
+            };
+            console.error("Api error", errorData.error);
             return NextResponse.redirect(new URL('/error', req.url));
         };
 

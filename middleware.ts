@@ -42,8 +42,6 @@ export async function middleware(req: NextRequest) {
         const user = await response.json();
         const {onBoardingStep, isOnboarded } = user;
 
-        console.log(onBoardingStep, isOnboarded);
-
         if (isOnboarded && url.pathname.startsWith('/onboarding')) {
             return NextResponse.redirect(new URL('/dashboard', req.url));
         };

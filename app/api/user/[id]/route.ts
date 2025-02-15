@@ -10,7 +10,6 @@ interface RouteParams {
 export async function GET(req: NextRequest, { params }: RouteParams) {
     try {    
     const token = await getToken({ req });
-    console.log(token);
     if(!token || !token.sub) {
         return NextResponse.json({ error: "Unauthorized access" }, { status: 401 });
     };

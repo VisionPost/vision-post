@@ -38,7 +38,7 @@ export const authOptions: AuthOptions = {
                 const githubProfile = profile as { login: string };
                 user.githubUsername = githubProfile.login;
             };
-            console.log(user);
+            console.log(user, account);
             return true;
         },
         async jwt({ token }) {

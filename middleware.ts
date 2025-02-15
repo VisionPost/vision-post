@@ -9,7 +9,7 @@ export async function middleware(req: NextRequest) {
         if(!token || !token.sub) {
             return NextResponse.redirect(new URL('/auth/signin', req.url));
         };
-        console.log(token)
+        
         const response = await fetch(`${process.env.NEXTAUTH_URL}/api/user/${token.sub}`, {
             method: 'GET',
             headers: {

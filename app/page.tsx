@@ -1,12 +1,16 @@
-"use client"
+import { getServerSession } from "next-auth";
+import AuthComponent from "./components/authComponent";
+import { redirect } from "next/navigation";
 
-import { signIn, signOut } from "next-auth/react";
+export default async function Home() {
+  const session = await getServerSession();
+  if(session?.user) {
+    redirect("/dashboard");
+  };
 
-export default function Home() {
   return (
-    <div className="gap-2" >
-      <button onClick={() => signIn()}>Sign in</button>
-      <button onClick={() => signOut()}>Sign out</button>
+    <div>
+      <AuthComponent />
     </div>
   );
 }

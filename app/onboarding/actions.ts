@@ -33,10 +33,14 @@ export async function storeTwitterUserName(twitterUsername: string, step: number
     try {
     const user = await getAuthUser();
 
+    if(!twitterUsername.trim()) {
+        return { success: false, error: "Please Enter a valid username" };
+    };
+
     await prisma.user.update({
         where: { id: user.id },
         data: {
-            x_userName: twitterUsername,
+            x_userName: twitterUsername.trim(),
             onBoardingStep: step,
         },
     });
@@ -45,12 +49,11 @@ export async function storeTwitterUserName(twitterUsername: string, step: number
     } catch (e) {
         if(e instanceof Prisma.PrismaClientKnownRequestError) {
             console.error("Database Error", e);
-            redirect('/error');
+            return { success: false, error: "Database error occured" };
         };
         console.error("Internal server error", e);
-        redirect('/error');
+        return { success: false, error: "Internal server error" };
     };
-    redirect(`/onboarding/${step}`);
 };
 
 export async function completeOnboarding() {

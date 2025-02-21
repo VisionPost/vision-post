@@ -48,6 +48,9 @@ export async function storeTwitterUserName(twitterUsername: string, step: number
     revalidatePath("/onboarding");
     } catch (e) {
         if(e instanceof Prisma.PrismaClientKnownRequestError) {
+            if(e.code === 'P2002') {
+                return { success: false, error: "This username is already in use" }
+            };
             console.error("Database Error", e);
             return { success: false, error: "Database error occured" };
         };

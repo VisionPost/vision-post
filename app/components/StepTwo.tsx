@@ -10,7 +10,6 @@ export default function StepTwo() {
     const router = useRouter();
 
     async function handleSubmit() {
-        setError(null);
         const result = await storeTwitterUserName(twitterUsername, 3);
 
         if(result && !result.success) {

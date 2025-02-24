@@ -3,6 +3,7 @@ import StepTwo from "@/app/components/StepTwo";
 import StepThree from "@/app/components/StepThree";
 import { Progress } from "@/components/ui/progress";
 import { CheckCircle2 } from "lucide-react";
+import Image from "next/image";
 
 interface RouteParams {
     params: Promise<{ step: string }>;
@@ -10,8 +11,8 @@ interface RouteParams {
 
 export default async function Onboarding({ params }: RouteParams) {
     const { step } = await params;
-    const currentStep: number = Number(step);
-    const totalSteps: number = 3;
+    const currentStep = Number(step);
+    const totalSteps = 3;
 
     const progress = (currentStep / totalSteps) * 100;
 
@@ -34,11 +35,20 @@ export default async function Onboarding({ params }: RouteParams) {
     return(
         <div className="min-h-screen bg-black flex flex-col items-center justify-center p-4">
           <div className="w-full bg-blue-600 text-white text-center px-4 py-2 fixed top-0">
-            <p className="text-sm font-bold">Welcome to VisionPost</p>
+            <p className="text-[14px] font-medium">Boost your developer branding with VisionPost  🚀</p>
+          </div>
+
+          <div className="-mt-2">
+            <Image 
+              src="/logo.png"
+              alt="logo"
+              width={150}
+              height={150}
+            />
           </div>
 
           <div className="max-w-2xl w-full bg-black border-none text-white p-8">
-            <div className="mb-8">
+            <div className="mb-4">
               <Progress value={progress}
               className="h-1 bg-gray-800 [&>*]:bg-blue-600"
               />

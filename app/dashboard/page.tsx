@@ -1,6 +1,6 @@
 
 export default function Dashboard() {
     return(
-    <div>dashboard</div>
+    <div className="min-h-screen bg-black text-white">dashboard</div>
     )
 }

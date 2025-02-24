@@ -1,6 +1,6 @@
 
 export default function Error() {
     return (
-        <div>Server error</div>
+        <div className="min-h-screen bg-black text-white">Server error</div>
     )
 }

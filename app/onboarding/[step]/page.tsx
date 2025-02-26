@@ -47,7 +47,7 @@ export default async function Onboarding({ params }: RouteParams) {
             />
           </div>
 
-          <div className="max-w-2xl w-full bg-black border-none text-white p-8">
+          <div className="max-w-2xl w-full border-none text-white p-8">
             <div className="mb-4">
               <Progress value={progress}
               className="h-1 bg-gray-800 [&>*]:bg-blue-600"

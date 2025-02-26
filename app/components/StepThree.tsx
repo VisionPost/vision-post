@@ -1,15 +1,24 @@
 "use client";
 
+import { ArrowRight } from "lucide-react";
 import { completeOnboarding } from "../onboarding/actions";
 
 export default function StepThree() {
     return (
         <div className="flex flex-col justify-center items-center">
-            <h1 className="mt-10">All done!</h1>
+            <div className="text-center mb-6 space-y-6">
+                <h1 className="text-5xl md:text-6xl font-bold text-white tracking-tight">Ready to launch</h1>
+                <p className="text-xl text-gray-400 max-w-lg mx-auto">Your workspace is live! Generate your first post and share your expertise with the world.</p>
+            </div>
+            
+            <div className="p-1">
             <button 
-            className="bg-white border-1 text-black rounded-md px-4"
+            className="bg-blue-600 border-1 hover:bg-blue-700 min-w-[300px] md:min-w-[200px] text-white rounded-md flex justify-center items-center py-3 px-5"
             onClick={completeOnboarding}
-            >Launch workspace</button>
+            >Go to dashboard
+            <ArrowRight className="h-4 w-4 ml-2" />
+            </button>
+            </div>
         </div>
     )
 }

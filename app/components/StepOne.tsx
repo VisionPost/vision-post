@@ -8,7 +8,7 @@ export default function StepOne() {
         <div className="flex flex-col items-center justify-center">
             <div className="space-y-6 text-center mb-8 text-white">
             <h1 className="text-5xl md:text-6xl text-center font-bold tracking-tight">Welcome to VisionPost</h1>
-            <p className="text-xl text-gray-400 max-w-lg mx-auto">Let's get started with setting up your workspace for success.</p>
+            <p className="text-xl text-gray-400 max-w-lg mx-auto">A few quick steps to personalize your experience—let's begin!</p>
             </div>
             <div className="p-1">
             <button 

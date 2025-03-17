@@ -1,7 +1,7 @@
 "use server";
 
 import { revalidatePath } from "next/cache";
-import { prisma } from "../lib/db";
+import { prisma } from "@repo/db";
 import { redirect } from "next/navigation";
 import { getAuthUser } from "../lib/authHelpers";
 import { Prisma } from "@prisma/client";
@@ -19,7 +19,7 @@ export async function updateStep(step: number) {
 
     revalidatePath("/onboarding");
     } catch (e) {
-        if(e instanceof Prisma.PrismaClientKnownRequestError) {
+        if(e instanceof Prisma.PrismaClientInitializationError) {
             console.error("Database Error", e);
             redirect('/error');
         };
@@ -72,7 +72,7 @@ export async function completeOnboarding() {
 
     revalidatePath('/dashboard');
     } catch (e) {
-        if(e instanceof Prisma.PrismaClientKnownRequestError) {
+        if(e instanceof Prisma.PrismaClientInitializationError) {
             console.error("Database Error", e);
             redirect('/error');
         };

@@ -1,0 +1,19 @@
+{
+  "name": "@repo/db",
+  "type": "module",
+  "main": "index.ts",
+  "scripts": {
+    "prisma:generate": "prisma generate"
+  },
+  "exports": {
+    ".": "./index.ts"
+  },
+  "devDependencies": {
+    "@types/node": "^22.13.10",
+    "prisma": "^6.5.0",
+    "typescript": "^5.8.2"
+  },
+  "dependencies": {
+    "@prisma/client": "^6.5.0"
+  }
+}

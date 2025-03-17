@@ -4,27 +4,18 @@ import { NextRequest, NextResponse } from "next/server";
 export async function middleware(req: NextRequest) {
     try {
         const token = await getToken({ req });
-        const url = req.nextUrl.clone();
+        const url = req.nextUrl.clone(); 
 
         if(!token || !token.sub) {
             return NextResponse.redirect(new URL('/auth/signin', req.url));
         };
         
-        const response = await fetch(`${process.env.NEXTAUTH_URL}/api/user/${token.sub}`, {
+        const response = await fetch(`${process.env.BACKEND_URL}/user/${token.sub}`, {
             method: 'GET',
-            headers: {
-                'Content-Type': 'application/json',
-                'Cookie': req.headers.get('cookie') || '',
-            },
         });
 
         if(!response.ok) {
             const errorData = await response.json();
-
-            if(response.status === 401 || response.status === 403) {
-                console.error("Unauthorized or Forbidden", errorData.error);
-                return NextResponse.redirect(new URL('/auth/signin', req.url));
-            };
 
             if(response.status === 404) {
                 console.error("User not found", errorData.error);

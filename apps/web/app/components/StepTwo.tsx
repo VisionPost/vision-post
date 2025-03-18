@@ -50,7 +50,7 @@ export default function StepTwo() {
 
             <div className="p-1">
             <button 
-            className="bg-blue-600 border-1 hover:bg-blue-700 min-w-[300px] md:min-w-[200px] text-white rounded-md flex justify-center items-center py-3 px-5"
+            className="bg-blue-600 hover:bg-blue-700 min-w-[300px] md:min-w-[200px] text-white rounded-md flex justify-center items-center py-3 px-5"
             onClick={handleSubmit}
             >Continue
             <ArrowRight className="h-4 w-4 ml-2" />

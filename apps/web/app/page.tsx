@@ -9,7 +9,7 @@ export default async function Home() {
   };
 
   return (
-    <div className="min-h-screen flex justify-center items-center bg-blue-950 text-white">
+    <div className="min-h-screen flex justify-center items-center bg-black text-white">
       <AuthComponent />
     </div>
   );

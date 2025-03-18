@@ -27,7 +27,7 @@ export default function StepTwo() {
         <div className="flex flex-col justify-center items-center">
             <div className="text-center mb-6 space-y-6">
             <h1 className="text-5xl md:text-6xl font-bold text-white">Connect your Twitter</h1>
-            <p className="text-xl text-gray-400">Add your Twitter username to enhance your experience.</p>
+            <p className="text-xl text-gray-400">Add your Twitter username to enhance your experience</p>
             </div>
             
             <div className="max-w-sm mx-auto w-full space-y-4 mb-6">

@@ -8,7 +8,7 @@ export default function StepThree() {
         <div className="flex flex-col justify-center items-center">
             <div className="text-center mb-6 space-y-6">
                 <h1 className="text-5xl md:text-6xl font-bold text-white tracking-tight">Ready to launch</h1>
-                <p className="text-xl text-gray-400 max-w-lg mx-auto">Your account is ready. Go to the dashboard and create your first post.</p>
+                <p className="text-xl text-gray-400 max-w-lg mx-auto">Your account is ready. Go to the dashboard and create your first post</p>
             </div>
             
             <div className="p-1">

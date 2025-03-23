@@ -10,12 +10,22 @@ export async function middleware(req: NextRequest) {
             return NextResponse.redirect(new URL('/auth/signin', req.url));
         };
         
+        const jweToken = await getToken({ req, raw: true });
+
         const response = await fetch(`${process.env.BACKEND_URL}/user/${token.sub}`, {
             method: 'GET',
+            headers: {
+                "Authorization": `Bearer ${jweToken}` 
+            },
         });
 
         if(!response.ok) {
             const errorData = await response.json();
+
+            if(response.status === 401) {
+                console.error("Unauthorized", errorData.error);
+                return NextResponse.redirect(new URL('/auth/signin', req.url));
+            };
 
             if(response.status === 404) {
                 console.error("User not found", errorData.error);

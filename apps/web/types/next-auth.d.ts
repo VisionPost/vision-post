@@ -6,7 +6,7 @@ declare module "next-auth" {
     name: string | null;
     email: string;
     image: string | null;
-    githubUsername: string | null;  
+    githubUsername: string | null; 
   }
 
   interface Session {

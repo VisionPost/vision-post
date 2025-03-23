@@ -3,6 +3,7 @@ import cors from "cors";
 import { prisma } from "@repo/db";
 import { Prisma } from "@prisma/client";
 import dotenv from "dotenv";
+import { authMiddleware } from "./middleware";
 
 dotenv.config();
 const port = process.env.PORT || 8080;
@@ -11,7 +12,7 @@ const app = express();
 app.use(cors());
 app.use(express.json());
 
-app.get("/user/:id", async (req, res)=> {
+app.get("/user/:id", authMiddleware, async (req, res)=> {
     try {
     const { id: userId } = req.params;
     

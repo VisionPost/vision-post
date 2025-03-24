@@ -2,14 +2,6 @@ import { NextFunction, Request, Response } from "express";
 import { jwtDecrypt } from "jose";
 import * as crypto from "crypto";
 
-declare global {
-    namespace Express {
-        interface Request {
-            user?: any;
-        }
-    }
-}
-
 export async function authMiddleware (req: Request, res: Response, next: NextFunction): Promise<void> {
     const secret = process.env.NEXTAUTH_SECRET;
 

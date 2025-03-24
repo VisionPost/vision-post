@@ -8,6 +8,6 @@
     "strict": true,
     "rootDir": "src",
     "outDir": "dist",                                     
-    "skipLibCheck": true,                          
-  }
+    "skipLibCheck": true,                         
+  },
 }

@@ -1,6 +1,6 @@
 
-export default async function Dashboard() {
-    return(
-    <div className="min-h-screen bg-black text-white">dashboard</div>
+export default function Dashboard() {
+    return (
+        <div className="text-white">Dashboard</div>
     )
-}
+};

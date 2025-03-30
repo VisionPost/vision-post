@@ -5,14 +5,16 @@ import * as crypto from "crypto";
 export async function authMiddleware (req: Request, res: Response, next: NextFunction): Promise<void> {
     const secret = process.env.NEXTAUTH_SECRET;
 
-    const authHeader = req.headers.authorization;
+    const cookieToken = req.cookies["next-auth.session-token"];
 
-    if(!authHeader || !authHeader.startsWith("Bearer ")) {
+    const authHeader = req.headers.authorization?.split(' ')[1];
+
+    const token = cookieToken || authHeader;
+
+    if(!token) {
         res.status(401).json({ error: "Unauthorized: No token provided"});
         return;
     };
-
-    const jweToken = authHeader.split(" ")[1];
 
     try {
         const secretBytes = new TextEncoder().encode(secret);
@@ -37,7 +39,7 @@ export async function authMiddleware (req: Request, res: Response, next: NextFun
             ['decrypt']
         );
         
-        const { payload } = await jwtDecrypt(jweToken, encryptionKey);
+        const { payload } = await jwtDecrypt(token, encryptionKey);
 
         if(!payload || !payload.sub) {
             console.error("Token payload is invalid or missing required fields");

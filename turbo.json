@@ -6,7 +6,7 @@
       "dependsOn": ["^build"],
       "inputs": ["$TURBO_DEFAULT$", ".env*"],
       "outputs": [".next/**", "!.next/cache/**"],
-      "env": ["BACKEND_URL"]
+      "env": ["NEXT_PUBLIC_BACKEND_URL"]
     },
     "lint": {
       "dependsOn": ["^lint"]
@@ -17,7 +17,7 @@
     "dev": {
       "cache": false,
       "persistent": true,
-      "env": ["BACKEND_URL"]
+      "env": ["NEXT_PUBLIC_BACKEND_URL"]
     }
   }
 }

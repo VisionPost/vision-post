@@ -9,14 +9,15 @@ export async function middleware(req: NextRequest) {
         if(!token || !token.sub) {
             return NextResponse.redirect(new URL('/auth/signin', req.url));
         };
-        
-        const jweToken = await getToken({ req, raw: true });
 
-        const response = await fetch(`${process.env.BACKEND_URL}/user/${token.sub}`, {
+        const jweToken = await getToken({ req, raw: true });
+        
+        const response = await fetch(`${process.env.NEXT_PUBLIC_BACKEND_URL}/user/${token.sub}`, {
             method: 'GET',
             headers: {
-                "Authorization": `Bearer ${jweToken}` 
+                'Authorization': `Bearer ${jweToken}`,
             },
+            credentials: 'include',
         });
 
         if(!response.ok) {
@@ -67,6 +68,6 @@ export async function middleware(req: NextRequest) {
 };
 
 export const config = {
-    matcher: ['/dashboard/:path*', '/onboarding/:path*'],
+    matcher: ['/dashboard/:path*', '/onboarding/:path*', '/create/:path*'],
 };
  

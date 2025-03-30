@@ -41,6 +41,12 @@ export const authOptions: AuthOptions = {
             console.log(user, account);
             return true;
         },
+        async jwt({ token, user }) {
+            if(user) {
+                token.githubUsername = user.githubUsername;
+            }
+            return token;
+        },
         async session({ session, token }) {
             if(session.user && token.sub) {
                 session.user.id = token.sub;

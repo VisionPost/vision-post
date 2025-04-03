@@ -1,9 +1,9 @@
 "use client";
 
 export default function CommitButton() {
-    const fetchCommits = async () => {
+    const fetchContributions = async () => {
         try {
-            const response = await fetch(`${process.env.NEXT_PUBLIC_BACKEND_URL}/fetch-commits`, { 
+            const response = await fetch(`${process.env.NEXT_PUBLIC_BACKEND_URL}/fetch-contributions`, { 
                 method: "GET",
                 credentials: "include",
             });
@@ -12,6 +12,7 @@ export default function CommitButton() {
        
             if(!response.ok) {
                 console.log("Error fetching commits: ", data.error);
+                return;
             };
 
             console.log("Commits received:", data);
@@ -25,8 +26,8 @@ export default function CommitButton() {
         <div className="text-white min-h-screen flex justify-center items-center">
             <button 
             className="bg-white text-black px-4 py-2 font-medium hover:bg-gray-300"
-            onClick={fetchCommits}
-            >Fetch commits</button>
+            onClick={fetchContributions}
+            >Fetch contributions</button>
         </div>
     );
 };

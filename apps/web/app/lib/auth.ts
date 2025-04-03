@@ -60,6 +60,6 @@ export const authOptions: AuthOptions = {
       events: {
         async createUser({ user }) {
             console.log(user);
-        }
-      }
+        },
+      },
 };

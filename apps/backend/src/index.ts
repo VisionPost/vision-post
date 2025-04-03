@@ -51,7 +51,7 @@ app.get("/user/:id", authMiddleware, async (req, res)=> {
     };
 });
 
-app.get("/fetch-commits", authMiddleware, async (req, res) => {
+app.get("/fetch-contributions", authMiddleware, async (req, res) => {
     try {
         const { githubUsername, sub } = req.user;
 
@@ -72,7 +72,7 @@ app.get("/fetch-commits", authMiddleware, async (req, res) => {
 
         const githubAccessToken = accessToken.access_token;
 
-        const response = await fetch(`https://api.github.com/search/commits?q=author:${githubUsername}+sort:author-date-desc`, {
+        const commitResponse = await fetch(`https://api.github.com/search/commits?q=author:${githubUsername}+sort:author-date-desc`, {
             method: "GET",
             headers: {
                 'Accept': 'application/vnd.github+json',
@@ -81,9 +81,9 @@ app.get("/fetch-commits", authMiddleware, async (req, res) => {
             },
         });
 
-        if(!response.ok) {
-            if(response.status === 401) {
-                const error = await response.json();
+        if(!commitResponse.ok) {
+            if(commitResponse.status === 401) {
+                const error = await commitResponse.json();
                 res.status(401).json({ error: error.message });
                 return;
             };
@@ -91,8 +91,41 @@ app.get("/fetch-commits", authMiddleware, async (req, res) => {
             return;
         };
 
-        const data = await response.json(); 
-        res.status(200).json({ commits: data }); 
+        const commitData = await commitResponse.json(); 
+
+        const prResponse = await fetch(`https://api.github.com/search/issues?q=type:pr+author:${githubUsername}+sort:created-desc`,{
+            method: "GET",
+            headers: {
+                'Accept': 'application/vnd.github+json',
+                'Authorization': `Bearer ${githubAccessToken}`,
+                'X-GitHub-Api-Version': '2022-11-28',
+            },
+        });
+
+        if(!prResponse.ok) {
+            if(prResponse.status === 401) {
+                const error = await prResponse.json();
+                res.status(401).json({ error: error.message });
+                return;
+            };
+            res.json({ error: "Unexpected error occured" });
+            return;
+        };
+
+        const prData = await prResponse.json();
+
+        const contributions = [];
+
+        for(const commit of commitData.items) {
+            contributions.push({
+                type: "commit",
+                message: commit.commit.message,
+            });
+        };
+
+        console.log(contributions);
+
+        res.status(200).json({ contributions });
 
     } catch (error) {
         console.error('Server Error:', error);

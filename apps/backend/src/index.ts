@@ -72,7 +72,7 @@ app.get("/fetch-contributions", authMiddleware, async (req, res) => {
 
         const githubAccessToken = accessToken.access_token;
 
-        const commitResponse = await fetch(`https://api.github.com/search/commits?q=author:${githubUsername}+sort:author-date-desc`, {
+        const commitResponse = await fetch(`https://api.github.com/search/commits?q=author:${githubUsername}+sort:author-date-desc&per_page=100`, {
             method: "GET",
             headers: {
                 'Accept': 'application/vnd.github+json',
@@ -93,7 +93,7 @@ app.get("/fetch-contributions", authMiddleware, async (req, res) => {
 
         const commitData = await commitResponse.json(); 
 
-        const prResponse = await fetch(`https://api.github.com/search/issues?q=type:pr+author:${githubUsername}+sort:created-desc`,{
+        const prResponse = await fetch(`https://api.github.com/search/issues?q=type:pr+author:${githubUsername}+sort:created-desc&per_page=100`,{
             method: "GET",
             headers: {
                 'Accept': 'application/vnd.github+json',
@@ -120,6 +120,12 @@ app.get("/fetch-contributions", authMiddleware, async (req, res) => {
             contributions.push({
                 type: "commit",
                 message: commit.commit.message,
+                sha: commit.sha,
+                author: commit.author.login,
+                image: commit.author.avatar_url,
+                date: commit.commit.author.date,
+                url: commit.html_url,
+                repo: commit.repository.full_name,
             });
         };
 

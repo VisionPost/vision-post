@@ -119,17 +119,35 @@ app.get("/fetch-contributions", authMiddleware, async (req, res) => {
         for(const commit of commitData.items) {
             contributions.push({
                 type: "commit",
-                message: commit.commit.message,
+                title: commit.commit.message,
                 sha: commit.sha,
                 author: commit.author.login,
                 image: commit.author.avatar_url,
                 date: commit.commit.author.date,
                 url: commit.html_url,
                 repo: commit.repository.full_name,
+                repoDescription: commit.repository.description,
+                timestamp: new Date(commit.commit.author.date).getTime(),
             });
         };
 
-        console.log(contributions);
+        for(const pr of prData.items) {
+            const repoFullName = pr.repository_url.split("/").slice(-2).join("/");
+            contributions.push({
+                type: "pr",
+                title: pr.title,
+                number: pr.number,
+                author: pr.user.login,
+                image: pr.user.avatar_url,
+                body: pr.body,
+                date: pr.created_at,
+                url: pr.html_url,
+                repo: repoFullName,
+                timestamp: new Date(pr.created_at).getTime(),
+            });
+        };
+
+        contributions.sort((a, b) => b.timestamp - a.timestamp);
 
         res.status(200).json({ contributions });
 

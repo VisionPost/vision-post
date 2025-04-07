@@ -23,7 +23,8 @@ export default function CommitButton() {
     };
 
     return (
-        <div className="text-white min-h-screen flex justify-center items-center">
+        <div className="text-slate-300 min-h-screen flex justify-center items-center">
+            <h1>fgbfgbgfc</h1>
             <button 
             className="bg-white text-black px-4 py-2 font-medium hover:bg-gray-300"
             onClick={fetchContributions}

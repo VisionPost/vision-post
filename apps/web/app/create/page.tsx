@@ -1,15 +1,20 @@
+import Navbar from "../components/Navbar";
+import FetchContribs from "../components/FetchContribs";
 
-
-export default async function Create() {
+export default function Create() {
     return (
         <div className="min-h-screen text-slate-200">
-            <header className="border-b border-gray-800 py-3 px-4">
-                <div className="container flex items-center justify-between">
-                    <div className="flex items-center gap-8">
-                       <h1 className="text-xl font-bold ml-12">VisionPost</h1> 
+          <Navbar />
+            <main className="container mx-auto py-8">
+                <div className="flex flex-col md:flex-row gap-8">
+                    <div className="w-full md:w-2/3">
+                        <div className="flex items-center justify-between mb-6">
+                            <h2 className="text-2xl font-bold">Your Contributions</h2>
+                            <FetchContribs />
+                        </div>
                     </div>
                 </div>
-            </header>
+            </main>
         </div>
     );
 };

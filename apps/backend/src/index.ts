@@ -149,9 +149,7 @@ app.get("/fetch-contributions", authMiddleware, async (req, res) => {
 
         contributions.sort((a, b) => b.timestamp - a.timestamp);
 
-        console.log(contributions);
-
-        res.status(200).json({ contributions });
+        res.status(200).json({ githubData: contributions });
 
     } catch (error) {
         console.error('Server Error:', error);

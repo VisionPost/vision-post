@@ -10,13 +10,13 @@ export default function Navbar() {
             </div>
 
             <nav className="hidden md:flex items-center gap-6">
-              <Link href="/dashboard" className="text-slate-300 hover:text-white">
+              <Link href="/dashboard" className="text-slate-300 hover:text-white cursor-pointer">
                 Dashboard
               </Link>
-              <Link href="/create" className="text-slate-300 hover:text-white">
+              <Link href="/create" className="text-slate-300 hover:text-white cursor-pointer">
                 Create
               </Link>
-              <Link href="/analytics" className="text-slate-300 hover:text-white">
+              <Link href="/analytics" className="text-slate-300 hover:text-white cursor-pointer">
                 Analytics
               </Link>
             </nav>

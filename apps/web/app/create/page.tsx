@@ -7,6 +7,7 @@ import { useState } from "react";
 import { Card, CardContent } from "@/components/ui/card";
 import { Badge } from "@/components/ui/badge"
 import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
+import { Pagination, PaginationContent, PaginationItem, PaginationLink, PaginationNext,   PaginationPrevious } from "@/components/ui/pagination"
 
 interface Contribution {
     type: string;
@@ -29,6 +30,7 @@ export default function Create() {
     const [currentPage, setCurrentPage] = useState(1);
 
     const contributionsPerPage = 5;
+    const totalPages = Math.ceil(contributions.length / contributionsPerPage);
 
     const fetchContributions = async () => {
         setLoading(true);
@@ -57,6 +59,21 @@ export default function Create() {
     const getCurrentContributions = () => {
         const startIndex = (currentPage - 1) * contributionsPerPage;
         return contributions.slice(startIndex, startIndex + contributionsPerPage);
+    };
+
+    const renderPagination = () => {
+        if (totalPages <= 1) return null;
+
+        return (
+            <Pagination className="mt-6">
+             <PaginationContent>
+              {Array.from({ length: Math.min(5, totalPages)}, (_, i) => {
+                const pageNum = i + 1 + Math.max(0, currentPage - 3)
+                if (pageNum > totalPages) return null;
+              })}  
+             </PaginationContent>
+            </Pagination>
+        )
     };
 
     return (

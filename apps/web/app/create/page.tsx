@@ -70,7 +70,28 @@ export default function Create() {
               {Array.from({ length: Math.min(5, totalPages)}, (_, i) => {
                 const pageNum = i + 1 + Math.max(0, currentPage - 3)
                 if (pageNum > totalPages) return null;
-              })}  
+
+                return (
+                    <PaginationItem key={pageNum}>
+                      <PaginationLink 
+                      isActive={pageNum === currentPage} 
+                      onClick={() => setCurrentPage(pageNum)} 
+                      className="bg-black text-white border-gray-800" >
+                        {pageNum}
+                      </PaginationLink>  
+                    </PaginationItem>
+                )
+              })}
+              {totalPages > 5 && currentPage < totalPages - 2 && (
+            <>
+            <PaginationItem>
+              <PaginationLink className="cursor-default">...</PaginationLink>
+            </PaginationItem>
+            <PaginationItem>
+              <PaginationLink onClick={() => setCurrentPage(totalPages)}>{totalPages}</PaginationLink>
+            </PaginationItem>
+            </>
+            )}  
              </PaginationContent>
             </Pagination>
         )
@@ -83,7 +104,7 @@ export default function Create() {
             <div className="flex flex-col md:flex-row gap-8">
                 <div className="w-full md:w-2/3">
                     <div className="flex items-center justify-between mb-6">
-                        <h2 className="text-3xl font-sans">Your Contributions</h2>
+                        <h2 className="text-2xl font-bold">Your Contributions</h2>
                         <Button
                         onClick={fetchContributions}
                         disabled={loading}
@@ -134,6 +155,7 @@ export default function Create() {
                     </Card>
                 ))}
             </div>
+            {renderPagination()}
             </>
             ) : (
             <>

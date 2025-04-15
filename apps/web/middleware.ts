@@ -17,7 +17,6 @@ export async function middleware(req: NextRequest) {
             headers: {
                 'Authorization': `Bearer ${jweToken}`,
             },
-            credentials: 'include',
         });
 
         if(!response.ok) {

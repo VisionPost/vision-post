@@ -5,6 +5,7 @@ import { Prisma } from "@prisma/client";
 import dotenv from "dotenv";
 import cookieParser from "cookie-parser";
 import { authMiddleware } from "./middleware";
+import { error } from "console";
 
 dotenv.config();
 const port = process.env.PORT || 8080;
@@ -29,6 +30,11 @@ app.get("/user/:id", authMiddleware, async (req, res)=> {
         res.status(400).json({ error: "User ID is required" });
         return;
     };
+
+    if(req.user?.sub !== userId) {
+        res.status(401).json({ error: "forbidden" });
+        return;
+    }
 
     const user = await prisma.user.findUnique({
         where: { id: userId },

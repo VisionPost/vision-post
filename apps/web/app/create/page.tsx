@@ -7,7 +7,7 @@ import { useState } from "react";
 import { Card, CardContent } from "@/components/ui/card";
 import { Badge } from "@/components/ui/badge"
 import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
-import { Pagination, PaginationContent, PaginationItem, PaginationLink } from "@/components/ui/pagination"
+import { Pagination, PaginationContent, PaginationItem, PaginationLink } from "@/components/ui/pagination";
 
 interface Contribution {
     type: string;
@@ -48,6 +48,7 @@ export default function Create() {
             };
     
             setContributions(data.githubData);
+            console.log(data.githubData)
             setCurrentPage(1);
         } catch (error) {
             console.error("Error fetching commits: ", error);

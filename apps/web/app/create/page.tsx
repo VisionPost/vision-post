@@ -83,7 +83,7 @@ export default function Create() {
                     </PaginationItem>
                 )
               })}
-              {totalPages > 5 && currentPage < totalPages - 2 && (
+            {totalPages > 5 && currentPage < totalPages - 2 && (
             <>
             <PaginationItem>
               <PaginationLink className="cursor-default">...</PaginationLink>

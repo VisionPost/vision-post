@@ -5,7 +5,6 @@ import { Prisma } from "@prisma/client";
 import dotenv from "dotenv";
 import cookieParser from "cookie-parser";
 import { authMiddleware } from "./middleware";
-import { error } from "console";
 
 dotenv.config();
 const port = process.env.PORT || 8080;

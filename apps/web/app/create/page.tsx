@@ -57,6 +57,28 @@ export default function Create() {
         }
     };
 
+    const generatePost = async (contribution: Contribution) => {
+      try {
+        const response = await fetch(`${process.env.NEXT_PUBLIC_BACKEND_URL}/generate-post`, {
+          method: "POST",
+          credentials: "include",
+          headers: {
+            "Content-Type": "application/json",
+          },
+          body: JSON.stringify(contribution),
+        });
+
+        if(!response) {
+          console.log("no res");
+        };
+
+        const data = await response.json();
+        console.log(data);
+      } catch (error) {
+        console.log(error);
+      };
+    };
+
     const getCurrentContributions = () => {
         const startIndex = (currentPage - 1) * contributionsPerPage;
         return contributions.slice(startIndex, startIndex + contributionsPerPage);
@@ -120,7 +142,7 @@ export default function Create() {
             <>  
             <div className="grid gap-4">   
             {getCurrentContributions().map((contribution, index) => (   
-              <Card key={index} className="bg-black border-gray-800">      
+              <Card key={index} className="bg-zinc-900 border-0">      
                 <CardContent>    
                   <div className="flex justify-between items-start">     
                     <div className="flex items-center gap-3">         
@@ -138,7 +160,7 @@ export default function Create() {
                             <div className="text-sm text-gray-400">{contribution.date}</div>
                         </div>
                     </div>
-                    <Badge variant="outline" className="text-slate-200 bg-zinc-950 border-gray-800">
+                    <Badge variant="outline" className="text-slate-200 border-gray-800">
                       {contribution.sha?.substring(0, 7) || contribution.number}
                     </Badge> 
                     </div>
@@ -148,6 +170,7 @@ export default function Create() {
                       <Button
                       variant="outline"
                       className="bg-slate-200 text-black hover:bg-slate-300 cursor-pointer border-0"
+                      onClick={() => generatePost(contribution)}
                       >
                         Generate Post
                       </Button>

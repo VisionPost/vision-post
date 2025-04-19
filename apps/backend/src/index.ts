@@ -5,17 +5,22 @@ import { Prisma } from "@prisma/client";
 import dotenv from "dotenv";
 import cookieParser from "cookie-parser";
 import { authMiddleware } from "./middleware";
+import OpenAI from "openai";
 
 dotenv.config();
 const port = process.env.PORT || 8080;
 
 const app = express();
 
+const openai = new OpenAI({
+    apiKey: process.env.OPENAI_API_KEY,
+});
+
 app.use(cors({
     origin: ["http://localhost:3000"],
     credentials: true,
     methods: ["GET", "POST"],
-    allowedHeaders: ["Authorization"],
+    allowedHeaders: ["Authorization", "Content-Type"],
 }));
 
 app.use(cookieParser());
@@ -162,6 +167,38 @@ app.get("/fetch-contributions", authMiddleware, async (req, res) => {
             message: 'Internal server error',  
         }); 
     };
+});
+
+app.post("/generate-post", authMiddleware, async (req, res) => {
+    try {
+        const contribution = req.body;
+
+        const userMessage = `You're a developer who just made the following code contribution and want to share it on Twitter. Write a concise, energetic, and non-generic tweet in first-person voice (as if you're tweeting it yourself). Use Emojis. Focus on what was done, why it matters, and add a relevant hashtag.
+
+        Contribution details:
+        - Title: ${contribution.title}
+        - Type: ${contribution.type}
+        - Repository: ${contribution.repo}
+        - Date: ${contribution.date}
+        - Commit SHA/PR #: ${contribution.sha || contribution.number}
+        - html_url SHA/PR: ${contribution.url}
+        Avoid thanking yourself, and keep it under 280 characters.
+        `.trim();
+
+        const completion = await openai.chat.completions.create({
+            model: "gpt-4.1",
+            messages: [
+                { role: "system", content: "You are a helpful assistant that writes engaging tweets." },
+                { role: "user", content: userMessage },
+            ]
+        });
+
+        const post = completion.choices[0].message.content;
+        console.log(post);
+        res.status(200).json({ post });
+    } catch (error) {
+        console.error(error);
+    }
 });
 
 app.listen(port, () => {

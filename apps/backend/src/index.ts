@@ -171,17 +171,55 @@ app.get("/fetch-contributions", authMiddleware, async (req, res) => {
 
 app.post("/generate-post", authMiddleware, async (req, res) => {
     try {
-        const contribution = req.body;
+        const { sub } = req.user;
 
-        const userMessage = `You're a developer who just made the following code contribution and want to share it on Twitter. Write a concise, energetic, and non-generic tweet in first-person voice (as if you're tweeting it yourself). Use Emojis. Focus on what was done, why it matters, and add a relevant hashtag.
+        const accessToken = await prisma.account.findFirst({
+            where:{
+                userId: sub,
+                provider: "github",
+            },
+            select: {
+                access_token: true,
+            },
+        });
+
+        if(!accessToken?.access_token) {
+            res.status(404).json({ error: "No access token found" });
+            return;
+        };
+
+        const githubAccessToken = accessToken.access_token;
+
+        const { type, title, sha, number, author, body, date, url, repo } = req.body;
+
+        let diff = "";
+
+        if(type == "commit") {
+            const response = await fetch(`https://api.github.com/repos/${repo}/commits/${sha}`, {
+                headers: {
+                    "Accept": "application/vnd.github+json",
+                    "Authorization": `Bearer ${githubAccessToken}`,
+                    "X-GitHub-Api-Version": "2022-11-28",
+                },
+            },
+            );
+            if(response.ok) {
+                const data = await response.json();
+                console.log(data);
+            };
+        };
+
+        /*const userMessage = `You're a developer who just made the following code contribution and want to share it on Twitter. Write a concise, energetic, and non-generic tweet in first-person voice (as if you're tweeting it yourself). Use Emojis. Focus on what was done, why it matters, and add a relevant hashtag.
 
         Contribution details:
-        - Title: ${contribution.title}
-        - Type: ${contribution.type}
-        - Repository: ${contribution.repo}
-        - Date: ${contribution.date}
-        - Commit SHA/PR #: ${contribution.sha || contribution.number}
-        - html_url SHA/PR: ${contribution.url}
+        - Title: ${title}
+        - Type: ${type}
+        - author: ${author} 
+        - Repository: ${repo}
+        - Date: ${date}
+        - Commit SHA/PR #: ${sha || number}
+        - html_url SHA/PR: ${url}
+        - body PR: ${body} 
         Avoid thanking yourself, and keep it under 280 characters.
         `.trim();
 
@@ -195,7 +233,7 @@ app.post("/generate-post", authMiddleware, async (req, res) => {
 
         const post = completion.choices[0].message.content;
         console.log(post);
-        res.status(200).json({ post });
+        res.status(200).json({ post });*/
     } catch (error) {
         console.error(error);
     }

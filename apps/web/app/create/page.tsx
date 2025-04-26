@@ -127,7 +127,7 @@ export default function Create() {
             <div className="flex flex-col md:flex-row gap-8">
                 <div className="w-full md:w-2/3">
                     <div className="flex items-center justify-between mb-6">
-                        <h2 className="text-2xl font-bold">Your Contributions</h2>
+                        <h2 className="bg-gradient-to-r from-white to-gray-400 text-transparent bg-clip-text text-2xl font-bold">Your Contributions</h2>
                         <Button
                         onClick={fetchContributions}
                         disabled={loading}

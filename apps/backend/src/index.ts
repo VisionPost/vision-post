@@ -224,12 +224,12 @@ app.post("/generate-post", authMiddleware, async (req, res) => {
         - Date: ${date}
         - Commit SHA/PR #: ${sha || number}
         - html_url SHA/PR: ${url}
-        - body PR: ${body} 
-        - contribution diff: 
+        - body PR: ${body}
+        - contribution diff:
         \`\`\`diff
         ${diff}
         \`\`\`
-        - Analyze the contribution code diff to pull out one or two key changes—like a new feature, fix, or optimization—and weave them naturally into the tweet. Keep it subtle; no need for code snippets, just a casual mention of the technical side. 
+        - Analyze the contribution code diff to pull out one or two key changes—like a new feature, fix, or optimization—and weave them naturally into the tweet. Keep it subtle; no need for code snippets, just a casual mention of the technical side.  
         Avoid thanking yourself, and keep it under 280 characters.
         `.trim();
 

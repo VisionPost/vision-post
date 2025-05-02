@@ -131,10 +131,10 @@ export default function Create() {
                         <Button
                         onClick={fetchContributions}
                         disabled={loading}
-                        className="bg-slate-200 text-black hover:bg-slate-300 cursor-pointer"
+                        className="bg-zinc-900 text-white hover:bg-zinc-800 cursor-pointer"
                         >
                         {loading ? <Loader2 className="mr-2 h-4 w-4 animate-spin" /> : <RefreshCw className="mr-2 h-4 w-4" /> }
-                        Fetch Contributions
+                        <span className="bg-gradient-to-r from-white to-gray-400 text-transparent bg-clip-text">Fetch Contributions</span>
                         </Button>
                      </div>
     

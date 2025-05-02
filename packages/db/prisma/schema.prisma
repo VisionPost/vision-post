@@ -17,6 +17,7 @@ model User {
   onBoardingStep      Int       @default(1)
   isOnboarded         Boolean   @default(false)
 
+  posts               Post[]
   accounts            Account[]
 }
 
@@ -30,4 +31,11 @@ model Account {
   providerAccountId   String    @unique
 
   @@unique([provider, providerAccountId])
+}
+
+model Post {
+  id                  String    @id  @default(uuid())
+  userId              String
+  user                User      @relation(fields: [userId], references: [id])
+  content             String
 }

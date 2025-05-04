@@ -6,6 +6,7 @@ import { authMiddleware } from "./middlewares/auth.middleware";
 import userRoutes from "./routes/user.routes";
 import contributionsRoutes from "./routes/contributions.routes";
 import postRoutes from "./routes/posts.routes";
+import reposRoutes from "./routes/repos.routes";
 import OpenAI from "openai";
 
 dotenv.config();
@@ -28,6 +29,7 @@ app.use(cookieParser());
 app.use(express.json());
 
 app.use("/user", authMiddleware, userRoutes);
+app.use("/fetch-repositories", authMiddleware, reposRoutes);
 app.use("/fetch-contributions", authMiddleware, contributionsRoutes);
 app.use("/generate-post", authMiddleware, postRoutes);
 

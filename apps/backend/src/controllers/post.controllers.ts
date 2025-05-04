@@ -41,7 +41,6 @@ export async function generatePost(req: Request, res: Response) {
                 diff = data.files.filter((file: any) => !file.filename.includes("package-lock.json")).
                 map((file: any) => file.patch || "").
                 join("/n");
-                console.log(diff);
             };
         };
 

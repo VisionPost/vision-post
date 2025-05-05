@@ -3,7 +3,7 @@
 import Navbar from "../components/Navbar";
 import { Button } from "@/components/ui/button";
 import { Loader2, RefreshCw } from "lucide-react";
-import { useEffect, useState } from "react";
+import { useState } from "react";
 import { Card, CardContent } from "@/components/ui/card";
 import { Badge } from "@/components/ui/badge"
 import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
@@ -31,27 +31,6 @@ export default function Create() {
 
     const contributionsPerPage = 5;
     const totalPages = Math.ceil(contributions.length / contributionsPerPage);
-
-    const fetchRepositories = async () => {
-      try {
-        const response = await fetch(`${process.env.NEXT_PUBLIC_BACKEND_URL}/fetch-repositories`, {
-          method: "GET",
-          credentials: "include",
-        });
-
-        const data = await response.json();
-
-        if(!response.ok) {
-          console.log("Error fetching repos", data.error);
-          return;
-        };
-
-        console.log(data);
-
-      } catch (error) {
-        console.log("Error fetching repos", error);
-      }
-    };
 
     const fetchContributions = async () => {
         setLoading(true);
@@ -140,10 +119,6 @@ export default function Create() {
             </Pagination>
         )
     };
-    
-    useEffect(() => {
-      fetchRepositories();
-    }, [])
 
     return (
     <div className="min-h-screen text-slate-200">

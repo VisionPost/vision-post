@@ -20,12 +20,12 @@ export async function getRepos(req: Request, res: Response) {
             return;
         };
     
-        const githubAccessToken = accessToken.access_token;
+        const githubAccessToken = accessToken.access_token; 
 
-        const response = await fetch(`https://api.github.com/user/repos?visibility=all&sort=updated&direction=desc&per_page=100`, {
+        const response = await fetch(`https://api.github.com/user/repos`, {
             method: "GET",
             headers: {
-                'Accept': 'application/vnd.github+json',
+                'Accept': 'application/vnd.github.v3+json',
                 'Authorization': `Bearer ${githubAccessToken}`,
                 'X-GitHub-Api-Version': '2022-11-28'
             },

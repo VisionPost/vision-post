@@ -25,7 +25,7 @@ export async function getContributions(req: Request, res: Response) {
         const commitResponse = await fetch(`https://api.github.com/search/commits?q=author:${githubUsername}+sort:author-date-desc&per_page=100`, {
             method: "GET",
             headers: {
-                'Accept': 'application/vnd.github+json',
+                'Accept': 'application/vnd.github.cloak-preview+json',
                 'Authorization': `Bearer ${githubAccessToken}`,
                 'X-GitHub-Api-Version': '2022-11-28'
             },
@@ -98,7 +98,6 @@ export async function getContributions(req: Request, res: Response) {
         };
     
         contributions.sort((a, b) => b.timestamp - a.timestamp);
-    
         res.status(200).json({ githubData: contributions });
     
     } catch (error) {

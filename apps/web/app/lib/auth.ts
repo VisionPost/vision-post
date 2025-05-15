@@ -1,6 +1,7 @@
 import { PrismaAdapter } from "@next-auth/prisma-adapter";
 import { AuthOptions } from "next-auth";
 import GitHubProvider from "next-auth/providers/github";
+import TwitterProvider from "next-auth/providers/twitter";
 import { prisma } from "@repo/db";
 import { Prisma } from "@prisma/client";
 import { AdapterAccount } from "next-auth/adapters";
@@ -34,6 +35,16 @@ export const authOptions: AuthOptions = {
                 scope: "read:user user:email repo read:org",
             },
           },
+        }),
+        TwitterProvider({
+            clientId: process.env.TWITTER_CLIENT_ID || "",
+            clientSecret: process.env.TWITTER_CLIENT_SECRET || "",
+            version: "2.0",
+            authorization: {
+                params: {
+                    scope: "tweet.read tweet.write users.read offline.access",
+                },
+            },
         }),
       ],
       secret: process.env.NEXTAUTH_SECRET,

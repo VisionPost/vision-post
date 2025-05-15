@@ -25,10 +25,12 @@ model Account {
   id                  String    @id  @default(uuid())
   userId              String
   user                User      @relation(fields: [userId], references: [id])
-  access_token        String?
   type                String
   provider            String
   providerAccountId   String    @unique
+  access_token        String?   @default("")
+  refresh_token       String?   @default("")
+  expires_at          Int?      @default(0)
 
   @@unique([provider, providerAccountId])
 }

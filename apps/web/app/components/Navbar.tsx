@@ -16,9 +16,6 @@ export default function Navbar() {
               <Link href="/create" className="text-slate-300 hover:text-white cursor-pointer">
                 Create
               </Link>
-              <Link href="/analytics" className="text-slate-300 hover:text-white cursor-pointer">
-                Analytics
-              </Link>
             </nav>
           </div>
         </div>  

@@ -7,7 +7,6 @@ import { Label } from "@/components/ui/label";
 import { Input } from "@/components/ui/input";
 import { FaXTwitter } from "react-icons/fa6";
 import { ArrowRight } from "lucide-react";
-import { signIn } from "next-auth/react";
 
 export default function StepTwo() {
     const [twitterUsername, setTwitterUsername] = useState<string>("");
@@ -52,7 +51,7 @@ export default function StepTwo() {
             <div className="p-1">
             <button 
             className="bg-blue-600 hover:bg-blue-700 min-w-[300px] md:min-w-[200px] text-white rounded-md flex justify-center items-center py-3 px-5"
-            onClick={() => signIn("twitter", { callbackUrl: "/onboarding/3" })}
+            onClick={handleSubmit}
             >Continue
             <ArrowRight className="h-4 w-4 ml-2" />
             </button>

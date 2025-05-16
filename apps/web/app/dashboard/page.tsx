@@ -40,41 +40,41 @@ export default function Dashboard() {
             <SidebarContent className="px-3 py-6 bg-[#000000]">
              <SidebarMenu className="space-y-1.5">
               <SidebarMenuItem>
-               <SidebarMenuButton className="w-full" asChild>
-                <Link href="/dashboard" className="flex items-center gap-3 rounded-sm text-slate-200 bg-[#1a1a1a]">
-                 <Home className="h-4 w-4 text-slate-200" />
+               <SidebarMenuButton className="flex items-center w-full gap-3 px-3 py-2.5 rounded-sm text-slate-200 bg-[#1a1a1a] hover:bg-[#1a1a1a] hover:text-slate-200" asChild>
+                <Link href="/dashboard">
+                 <Home className="h-4 w-4" />
                  <span className="font-medium">Dashboard</span>
                 </Link>
                </SidebarMenuButton>
               </SidebarMenuItem>
               <SidebarMenuItem>
-               <SidebarMenuButton className="w-full" asChild>
-                <Link href="/create" className="flex items-center gap-3 rounded-sm px-3 py-2.5 text-[#888888] hover:bg-[#1a1a1a]">
-                 <FilePlus className="h-4 w-4 text-slate-200" />
+               <SidebarMenuButton className="flex items-center w-full gap-3 rounded-sm px-3 py-2.5 text-slate-200 hover:bg-[#1a1a1a] hover:text-slate-200" asChild>
+                <Link href="/create">
+                 <FilePlus className="h-4 w-4" />
                  <span className="font-medium">Create</span>
                 </Link>
                </SidebarMenuButton> 
               </SidebarMenuItem>
               <SidebarMenuItem>
-               <SidebarMenuButton className="w-full" asChild>
-                <Link href="/refine" className="flex items-center gap-3 rounded-sm px-3 py-2.5 text-[#888888] hover:bg-[#1a1a1a]">
-                 <BrainCircuit className="h-4 w-4 text-slate-200" />
+               <SidebarMenuButton className="flex items-center w-full gap-3 rounded-sm px-3 py-2.5 text-slate-200 hover:bg-[#1a1a1a] hover:text-slate-200" asChild>
+                <Link href="/refine">
+                 <BrainCircuit className="h-4 w-4" />
                  <span className="font-medium">Refine</span>
                 </Link>
                </SidebarMenuButton> 
               </SidebarMenuItem>
               <SidebarMenuItem>
-               <SidebarMenuButton className="w-full" asChild>
-                <Link href="/billing" className="flex items-center gap-3 rounded-sm px-3 py-2.5 text-[#888888] hover:bg-[#1a1a1a]">
-                 <CreditCard className="h-4 w-4 text-slate-200" />
+               <SidebarMenuButton className="flex items-center w-full gap-3 rounded-sm px-3 py-2.5 text-slate-200 hover:bg-[#1a1a1a] hover:text-slate-200" asChild>
+                <Link href="/billing">
+                 <CreditCard className="h-4 w-4" />
                  <span className="font-medium">Billing</span>
                 </Link>
                </SidebarMenuButton> 
               </SidebarMenuItem>
               <SidebarMenuItem>
-               <SidebarMenuButton className="w-full" asChild>
-                <Link href="/settings" className="flex items-center gap-3 rounded-sm px-3 py-2.5 text-[#888888] hover:bg-[#1a1a1a]">
-                 <Settings className="h-4 w-4 text-slate-200" />
+               <SidebarMenuButton className="flex items-center w-full gap-3 rounded-sm px-3 py-2.5 text-slate-200 hover:bg-[#1a1a1a] hover:text-slate-200" asChild>
+                <Link href="/settings">
+                 <Settings className="h-4 w-4" />
                  <span className="font-medium">Settings</span>
                 </Link>
                </SidebarMenuButton> 

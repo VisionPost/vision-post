@@ -7,9 +7,10 @@ import {
     SidebarMenuButton,
     SidebarProvider,
     SidebarTrigger,
-  } from "@/components/ui/sidebar"
+    SidebarFooter,
+} from "@/components/ui/sidebar"
 
-  import {
+import {
     Bell,
     ChevronDown,
     BrainCircuit,
@@ -23,10 +24,16 @@ import {
     Search,
     Settings,
     Users,
-  } from "lucide-react"  
+} from "lucide-react"  
+import { getServerSession } from "next-auth"
+import Image from "next/image"
 import Link from "next/link"
+import { authOptions } from "../lib/auth"
 
-export default function Dashboard() {
+export default async function Dashboard() {
+    const session = await getServerSession(authOptions);
+    const avatarUrl = session?.user.image ?? "/logo.png";
+
     return (
         <div>
         <SidebarProvider>
@@ -34,7 +41,16 @@ export default function Dashboard() {
           <Sidebar className="border-r border-zinc-800 bg-[#000000]">
             <SidebarHeader className="border-b border-zinc-800 p-4 bg-[#000000]">
              <div className="flex items-center gap-2">
-              <span className="font-bold text-xl text-slate-200">VisionPost</span>
+             <div className="h-10 w-10 rounded-full overflow-hidden">
+               <Image 
+                src="/logo.jpeg"
+                alt="User Avatar"
+                width={40}
+                height={40}
+                className="object-cover"
+                />
+               </div>  
+              <span className="font-medium tracking-wider text-xl text-slate-200">VisionPost</span>
              </div>
             </SidebarHeader>
             <SidebarContent className="px-3 py-6 bg-[#000000]">
@@ -81,6 +97,25 @@ export default function Dashboard() {
               </SidebarMenuItem>
              </SidebarMenu>     
             </SidebarContent>
+            <SidebarFooter className="border-t border-zinc-800 p-4 bg-[#000000]">
+             <div className="flex items-center">
+              <div className="flex items-center gap-3">
+               <div className="h-10 w-10 rounded-full overflow-hidden">
+               <Image 
+                src={avatarUrl}
+                alt="User Avatar"
+                width={40}
+                height={40}
+                className="object-cover"
+                />
+               </div> 
+               <div className="flex flex-col">
+                <span className="text-sm font-medium text-slate-200">{session?.user.name}</span>
+                <span className="text-xs text-[#888888]">{session?.user.email}</span>
+               </div>
+              </div>
+             </div>
+            </SidebarFooter>
           </Sidebar>
          </div>
         </SidebarProvider>  

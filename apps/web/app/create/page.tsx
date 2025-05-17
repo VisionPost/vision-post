@@ -1,6 +1,5 @@
 "use client";
 
-import Navbar from "../components/Navbar";
 import { Button } from "@/components/ui/button";
 import { Loader2, RefreshCw } from "lucide-react";
 import { useState } from "react";
@@ -137,8 +136,7 @@ export default function Create() {
 
     return (
     <div className="min-h-screen text-slate-200">
-        <Navbar />
-        <main className="container mx-auto py-8 px-5 md:px-0">
+        <main className="container mx-auto py-8 px-5 md:px-10">
           <div className="flex flex-col md:flex-row gap-8">
             <div className="w-full md:w-1/2">
               <div className="flex items-center justify-between mb-6">
@@ -157,7 +155,7 @@ export default function Create() {
             <>  
             <div className="grid gap-4">   
             {getCurrentContributions().map((contribution, index) => (   
-              <Card key={index} className="bg-black border-gray-800 rounded-sm">      
+              <Card key={index} className="bg-[#000000] border-zinc-800 rounded-sm">      
                 <CardContent>    
                   <div className="flex justify-between items-start">     
                     <div className="flex items-center gap-3">         
@@ -175,13 +173,13 @@ export default function Create() {
                             <div className="text-sm text-gray-400">{contribution.date}</div>
                         </div>
                     </div>
-                    <Badge variant="outline" className="text-slate-200 border-gray-800">
+                    <Badge variant="outline" className="text-slate-200 border-zinc-800">
                       {contribution.sha?.substring(0, 7) || contribution.number}
                     </Badge> 
                     </div>
-                    <p className="mt-5 text-gray-300 font-extrabold"><span className="text-gray-400">{contribution.type.toUpperCase()} - </span>{contribution.title}</p>
+                    <p className="mt-5 text-gray-300 font-medium"><span className="text-gray-400">{contribution.type.toUpperCase()} - </span>{contribution.title}</p>
                     <div className="flex justify-between mt-4">
-                      <h1 className="text-gray-400 font-bold mt-1">Repository - <span className="text-slate-200">{contribution.repo}</span></h1>  
+                      <h1 className="text-gray-400 font-medium mt-1">Repository - <span className="text-slate-200">{contribution.repo}</span></h1>  
                       <Button
                       variant="outline"
                       disabled={loadingPost}
@@ -199,7 +197,7 @@ export default function Create() {
             {renderPagination()}
             </>
             ) : (
-            <Card className="bg-black border-gray-800 rounded-sm">
+            <Card className="bg-black border-zinc-800 rounded-sm">
               <CardContent className="p-8 text-center">
                 <p className="text-gray-400 mb-4">No contributions loaded yet</p>
                 <Button
@@ -218,12 +216,12 @@ export default function Create() {
             <div className="w-full md:w-1/2">
               <h2 className="text-center text-2xl font-medium mb-7 text-transparent bg-clip-text bg-gradient-to-r from-white to-gray-400">Refine Your Post</h2>
               {showPostEditor ? (
-                <Card className="bg-black border-gray-800 rounded-sm">
+                <Card className="bg-black border-zinc-800 rounded-sm">
                   <h1 className="text-white text-xl text-center font-medium">
                     <span className="text-gray-400">{selectedContribution?.type.toUpperCase()} - </span>{selectedContribution?.title}
                   </h1>
                   <CardContent>
-                    <div className="mb-4 rounded-sm p-4 border border-gray-800">
+                    <div className="mb-4 rounded-sm p-4 border border-zinc-800">
                       <div className="flex justify-between">
                       <div className="flex items-center gap-3 mb-3">
                         <Avatar>
@@ -244,7 +242,7 @@ export default function Create() {
                       <Textarea
                       value={generatedPost}
                       onChange={(e) => setGeneratedPost(e.target.value)} 
-                      className="bg-zinc-950 border-gray-700 mb-3 text-white focus-visible:border-blue-600 focus:outline-none focus:ring-0"
+                      className="bg-zinc-950 border-zinc-700 mb-3 text-white text-sm focus-visible:border-blue-600 focus:outline-none focus:ring-0"
                       rows={4}
                       />
                       <div className="flex items-center justify-between">
@@ -268,7 +266,7 @@ export default function Create() {
                     <div className="space-y-4">
                     <h3 className="text-gray-400 fomt-medium text-xl">Post Preview</h3>
                     <div className="w-full bg-slate-200 text-black font-medium h-6 text-center rounded-sm">Twitter</div>
-                    <div className="w-full border border-gray-800 bg-zinc-950 rounded-sm">
+                    <div className="w-full border border-zinc-800 bg-zinc-950 rounded-sm">
                     <div className="p-4">
                      <div className="flex items-center gap-3 mb-2">
                      <Avatar className="w-8 h-8">
@@ -287,14 +285,14 @@ export default function Create() {
                   </CardContent>
                 </Card>
               ) : (
-                <Card className="bg-black border-gray-800 rounded-sm">
+                <Card className="bg-black border-zinc-800 rounded-sm">
                   <CardContent className="p-8 text-center">
                   <p className="text-gray-400" >Generate a post from a contribution to view the editor</p>
                   </CardContent>
                 </Card>
               )}
 
-            <Card className="bg-black border-gray-800 mt-6 rounded-sm">
+            <Card className="bg-black border-zinc-800 mt-6 rounded-sm">
             <CardContent>
                 <h3 className="font-medium mb-3 text-white">Quick Start Guide</h3>
                 <div className="space-y-3">

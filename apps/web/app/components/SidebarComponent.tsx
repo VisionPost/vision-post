@@ -18,8 +18,7 @@ export default function SidebarComponent() {
     const avatarUrl = session.data?.user.image ?? "/logo.png";
 
     return(
-        <div className="flex min-h-screen bg-[#000000] text-slate-200">
-          <Sidebar className="border-r border-zinc-800 bg-[#000000]">
+          <Sidebar className="border-r border-zinc-800 bg-[#000000] h-full">
             <SidebarHeader className="border-b border-zinc-800 p-4 bg-[#000000]">
              <div className="flex items-center gap-2">
              <div className="h-10 w-10 rounded-full overflow-hidden">
@@ -82,7 +81,6 @@ export default function SidebarComponent() {
               </div>
              </div>
             </SidebarFooter>
-          </Sidebar>
-         </div>
+          </Sidebar> 
     );
 };

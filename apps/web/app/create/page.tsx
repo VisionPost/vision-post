@@ -134,9 +134,9 @@ export default function Create() {
         )
     };
 
-    return (
+    return (  
     <div className="min-h-screen text-slate-200">
-        <main className="container mx-auto py-8 px-5 md:px-10">
+        <main className="container mx-auto py-8 px-5 md:px-7">
           <div className="flex flex-col md:flex-row gap-8">
             <div className="w-full md:w-1/2">
               <div className="flex items-center justify-between mb-6">
@@ -155,7 +155,7 @@ export default function Create() {
             <>  
             <div className="grid gap-4">   
             {getCurrentContributions().map((contribution, index) => (   
-              <Card key={index} className="bg-[#000000] border-zinc-800 rounded-sm">      
+              <Card key={index} className="bg-[#000000] border-zinc-900 rounded-sm">      
                 <CardContent>    
                   <div className="flex justify-between items-start">     
                     <div className="flex items-center gap-3">         

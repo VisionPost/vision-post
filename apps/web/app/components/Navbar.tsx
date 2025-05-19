@@ -1,24 +1,22 @@
-import Link from "next/link";
+import { Input } from "@/components/ui/input";
+import { SidebarTrigger } from "@/components/ui/sidebar";
+import { Search } from "lucide-react";
 
 export default function Navbar() {
     return (
-        <header className="border-b border-zinc-800 py-3 px-4">
-        <div className="container flex items-center justify-between">
-          <div className="flex items-center gap-8">
-            <div className="flex items-center">
-              <h1 className="bg-gradient-to-r from-white to-gray-400 text-transparent bg-clip-text text-xl font-bold ml-12">VisionPost</h1>
-            </div>
-
-            <nav className="hidden md:flex items-center gap-6">
-              <Link href="/dashboard" className="text-slate-300 hover:text-white cursor-pointer">
-                Dashboard
-              </Link>
-              <Link href="/create" className="text-slate-300 hover:text-white cursor-pointer">
-                Create
-              </Link>
-            </nav>
+        <header className="sticky top-0 z-50 w-full border-b border-zinc-800 bg-[#000000] backdrop-blur supports-[backdrop-filter]:bg-[#000000]/60">
+          <div className="flex h-18 items-center gap-4 px-8">
+          <SidebarTrigger className="text-slate-200 cursor-pointer hover:bg-[#1a1a1a] hover:text-slate-300"/>
+          <div className="flex flex-1 items-center justify-between">
+           <div className="relative">
+            <Search className="absolute left-3 top-2.5 h-4 w-4 text-slate-200" />
+            <Input 
+            placeholder="Search..."
+            className="w-[300px] bg-[#1a1a1a] pl-10 h-10 rounded-lg border-zinc-800 focus-visible:ring-white/20 focus-visible:border-white/20"
+            />
+           </div>
           </div>
-        </div>  
-        </header>        
+          </div>
+        </header>       
     )
 };

@@ -155,7 +155,7 @@ export default function Create() {
             <>  
             <div className="grid gap-4">   
             {getCurrentContributions().map((contribution, index) => (   
-              <Card key={index} className="bg-[#000000] border-zinc-900 rounded-sm">      
+              <Card key={index} className="bg-[#000000] border-zinc-800 rounded-sm">      
                 <CardContent>    
                   <div className="flex justify-between items-start">     
                     <div className="flex items-center gap-3">         
@@ -214,7 +214,7 @@ export default function Create() {
             </div>
 
             <div className="w-full md:w-1/2">
-              <h2 className="text-center text-2xl font-medium mb-7 text-transparent bg-clip-text bg-gradient-to-r from-white to-gray-400">Refine Your Post</h2>
+              <h2 className="text-center text-2xl font-medium mb-7 text-transparent bg-clip-text bg-gradient-to-r from-white to-gray-400">Post Editor</h2>
               {showPostEditor ? (
                 <Card className="bg-black border-zinc-800 rounded-sm">
                   <h1 className="text-white text-xl text-center font-medium">

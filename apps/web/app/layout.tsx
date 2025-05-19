@@ -5,6 +5,7 @@ import "./globals.css";
 import SidebarComponent from "./components/SidebarComponent";
 import { Providers } from "./providers";
 import { SidebarProvider } from "@/components/ui/sidebar";
+import Navbar from "./components/Navbar";
 
 const geistSans = Geist({
   variable: "--font-geist-sans",
@@ -39,7 +40,8 @@ export default function RootLayout({
       <Providers>  
        <SidebarProvider>
         <SidebarComponent />    
-         <main className="flex-1 overflow-auto">
+         <main className="flex-1">
+          <Navbar />
           {children}
          </main>
         </SidebarProvider>    

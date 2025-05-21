@@ -7,7 +7,7 @@ export async function middleware(req: NextRequest) {
         const url = req.nextUrl.clone(); 
 
         if(!token || !token.sub) {
-            return NextResponse.redirect(new URL('/auth/signin', req.url));
+            return NextResponse.redirect(new URL('/signin', req.url));
         };
 
         const jweToken = await getToken({ req, raw: true });
@@ -24,17 +24,17 @@ export async function middleware(req: NextRequest) {
 
             if(response.status === 401) {
                 console.error("Unauthorized", errorData.error);
-                return NextResponse.redirect(new URL('/auth/signin', req.url));
+                return NextResponse.redirect(new URL('/signin', req.url));
             };
 
             if(response.status === 404) {
                 console.error("User not found", errorData.error);
-                return NextResponse.redirect(new URL('/auth/signin', req.url));
+                return NextResponse.redirect(new URL('/signin', req.url));
             };
 
             if(response.status === 400) {
                 console.error("Bad request", errorData.error);
-                return NextResponse.redirect(new URL('/auth/signin', req.url));
+                return NextResponse.redirect(new URL('/signin', req.url));
             };
             console.error("Api error", errorData.error);
             return NextResponse.redirect(new URL('/error', req.url));
@@ -70,10 +70,6 @@ export const config = {
     matcher: [
         '/dashboard/:path*', 
         '/onboarding/:path*', 
-        '/create/:path*', 
-        '/refine/:path*', 
-        '/billing/:path*,',
-        '/settings/:path*',
     ],
 };
  

@@ -41,22 +41,22 @@ export default function SidebarComponent() {
                </SidebarLink>
               </SidebarMenuItem>
               <SidebarMenuItem>
-               <SidebarLink href="/create" icon={FilePlus}>
+               <SidebarLink href="/dashboard/create" icon={FilePlus}>
                 Create
                </SidebarLink> 
               </SidebarMenuItem>
               <SidebarMenuItem>
-               <SidebarLink href="/refine" icon={BrainCircuit}>
+               <SidebarLink href="/dashboard/refine" icon={BrainCircuit}>
                 Refine
                </SidebarLink> 
               </SidebarMenuItem>
               <SidebarMenuItem>
-               <SidebarLink href="/billing" icon={CreditCard}>
+               <SidebarLink href="/dashboard/billing" icon={CreditCard}>
                 Billing
                </SidebarLink> 
               </SidebarMenuItem>
               <SidebarMenuItem>
-               <SidebarLink href="/settings" icon={Settings}>
+               <SidebarLink href="/dashboard/settings" icon={Settings}>
                 Settings
                </SidebarLink> 
               </SidebarMenuItem>

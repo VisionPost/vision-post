@@ -155,7 +155,7 @@ export default function Create() {
             <>  
             <div className="grid gap-4">   
             {getCurrentContributions().map((contribution, index) => (   
-              <Card key={index} className="bg-[#000000] border-zinc-800 rounded-sm">      
+              <Card key={index} className="bg-gradient-to-b from-zinc-900 to-zinc-950 border-zinc-900 rounded-sm">      
                 <CardContent>    
                   <div className="flex justify-between items-start">     
                     <div className="flex items-center gap-3">         
@@ -197,7 +197,7 @@ export default function Create() {
             {renderPagination()}
             </>
             ) : (
-            <Card className="bg-black border-zinc-800 rounded-sm">
+            <Card className="bg-gradient-to-b from-zinc-900 to-zinc-950 border-zinc-900 rounded-sm">
               <CardContent className="p-8 text-center">
                 <p className="text-gray-400 mb-4">No contributions loaded yet</p>
                 <Button
@@ -216,7 +216,7 @@ export default function Create() {
             <div className="w-full md:w-1/2">
               <h2 className="text-center text-2xl font-medium mb-7 text-transparent bg-clip-text bg-gradient-to-r from-white to-gray-400">Post Editor</h2>
               {showPostEditor ? (
-                <Card className="bg-black border-zinc-800 rounded-sm">
+                <Card className="bg-gradient-to-b from-zinc-900 via-zinc-950 to-zinc-900 border-zinc-900 rounded-sm">
                   <h1 className="text-white text-xl text-center font-medium">
                     <span className="text-gray-400">{selectedContribution?.type.toUpperCase()} - </span>{selectedContribution?.title}
                   </h1>
@@ -285,14 +285,14 @@ export default function Create() {
                   </CardContent>
                 </Card>
               ) : (
-                <Card className="bg-black border-zinc-800 rounded-sm">
+                <Card className="bg-gradient-to-b from-zinc-900 to-zinc-950 border-zinc-900 rounded-sm">
                   <CardContent className="p-8 text-center">
                   <p className="text-gray-400" >Generate a post from a contribution to view the editor</p>
                   </CardContent>
                 </Card>
               )}
 
-            <Card className="bg-black border-zinc-800 mt-6 rounded-sm">
+            <Card className="bg-gradient-to-b from-zinc-900 to-zinc-950 border-zinc-900 mt-6 rounded-sm">
             <CardContent>
                 <h3 className="font-medium mb-3 text-white">Quick Start Guide</h3>
                 <div className="space-y-3">

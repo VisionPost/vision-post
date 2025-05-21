@@ -14,7 +14,7 @@ export default function Navbar() {
             <Search className="absolute left-3 top-2.5 h-4 w-4 text-slate-200" />
             <Input 
             placeholder="Search..."
-            className="w-[300px] bg-[#1a1a1a] pl-10 h-10 rounded-lg border-zinc-800 focus-visible:ring-white/20 focus-visible:border-white/20"
+            className="w-[300px] bg-[#1a1a1a] text-slate-200 pl-10 h-10 rounded-lg border-zinc-800 focus-visible:ring-white/20 focus-visible:border-white/20"
             />
            </div>
            <div className="flex items-center">

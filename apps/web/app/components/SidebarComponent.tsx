@@ -15,7 +15,7 @@ import { useSession } from "next-auth/react";
 
 export default function SidebarComponent() {
     const session = useSession();
-    const avatarUrl = session.data?.user.image ?? "/logo.png";
+    const avatarUrl = session.data?.user.image ?? "/logo.jpeg";
 
     return(
           <Sidebar className="border-r border-zinc-800 bg-[#000000] h-full">

@@ -1,12 +1,17 @@
+import { authOptions } from "@/app/lib/auth";
 import { Avatar, AvatarFallback } from "@/components/ui/avatar";
 import { Button } from "@/components/ui/button";
 import { Card, CardContent } from "@/components/ui/card";
 import { Label } from "@/components/ui/label";
 import { AvatarImage } from "@radix-ui/react-avatar";
 import { Github, LayoutGrid, LogOut, Upload, User, X } from "lucide-react";
+import { getServerSession } from "next-auth";
 import { FaXTwitter } from "react-icons/fa6";
 
-export default function Settings() {
+export default async function Settings() {
+    const session = await getServerSession(authOptions);
+    const avatarUrl = session?.user.image ?? "/logo.jpeg";
+
     return (
         <div className="p-6 max-w-4xl mx-auto">
          <div className="flex items-center justify-start mb-8">
@@ -24,7 +29,7 @@ export default function Settings() {
           <div className="flex flex-col md:flex-row gap-8">
             <div className="flex flex-col items-center gap-3">
              <Avatar className="w-24 h-24 border-4 border-black ring-2 ring-zinc-700 shadow-xl">
-              <AvatarImage src="/logo.jpeg" alt="logo" />
+              <AvatarImage src={avatarUrl} alt="logo" />
               <AvatarFallback className="bg-gradient-to-br from-zinc-700 to-zinc-900">
                 GV
               </AvatarFallback>   
@@ -41,11 +46,11 @@ export default function Settings() {
             <div className="flex-1 space-y-5 pt-4">
              <div>
               <Label className="text-sm text-zinc-400 mb-1 block">Display Name</Label>
-              <p className="font-medium text-lg text-slate-200">Govind Vashishat</p>
+              <p className="font-medium text-lg text-slate-200">{session?.user.name}</p>
              </div>
              <div>
               <Label className="text-sm text-zinc-400 mb-1 block">Email</Label>
-              <p className="font-medium text-slate-200">govindvashishat@gmail.com</p>
+              <p className="font-medium text-slate-200">{session?.user.email}</p>
              </div>
 
              <div className="pt-2">

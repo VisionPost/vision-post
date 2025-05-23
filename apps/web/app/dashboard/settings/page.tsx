@@ -3,7 +3,7 @@ import { Button } from "@/components/ui/button";
 import { Card, CardContent } from "@/components/ui/card";
 import { Label } from "@/components/ui/label";
 import { AvatarImage } from "@radix-ui/react-avatar";
-import { Github, LayoutGrid, Upload, User } from "lucide-react";
+import { Github, LayoutGrid, Upload, User, X } from "lucide-react";
 import { FaXTwitter } from "react-icons/fa6";
 
 export default function Settings() {
@@ -67,21 +67,32 @@ export default function Settings() {
          </div>
 
          <Card className="bg-gradient-to-b from-zinc-900 to-zinc-950 border-zinc-800 overflow-hidden">
-            <CardContent className="p-6">
+            <CardContent>
              <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4">
               <div className="flex items-center gap-4">
                <div className="flex h-14 w-14 items-center justify-center rounded-full bg-zinc-950 text-slate-200 border-2 border-zinc-700">
                 <FaXTwitter size={24} />
                </div>
-
                <div>
                 <h3 className="font-medium text-lg text-slate-200">Twitter</h3>
+                <div className="flex items-center gap-1.5 text-zinc-400 text-sm mt-1">
+                    <X className="w-3.5 h-3.5" />
+                    <span>Not connected</span>
+                    </div>
                </div>
               </div>
+              <Button
+              variant="outline"
+              className="bg-zinc-950 text-slate-200 border-zinc-800 hover:bg-zinc-800 hover:text-slate-200"
+              >
+                Connect Twitter
+              </Button>
              </div>
-            </CardContent>
+          </CardContent>
          </Card>
-        </section> 
+        </section>
+
+        
         </div>
     );
 };

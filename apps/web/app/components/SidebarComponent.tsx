@@ -30,7 +30,7 @@ export default function SidebarComponent() {
                 className="object-cover"
                 />
                </div>  
-              <span className="font-medium tracking-wider text-xl text-slate-200">VisionPost</span>
+              <span className="bg-gradient-to-r from-white to-gray-400 text-transparent bg-clip-text font-medium tracking-wider text-xl">VisionPost</span>
              </div>
             </SidebarHeader>
             <SidebarContent className="px-3 py-6 bg-[#000000]">

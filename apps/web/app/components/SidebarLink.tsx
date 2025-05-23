@@ -18,9 +18,9 @@ export function SidebarLink({ href, children, icon: Icon }: SideBarItemProps) {
      <SidebarMenuButton 
      asChild
      className={`flex w-full items-center gap-3 px-3 py-2.5 rounded-sm 
-        ${isActive ? 'bg-[#1a1a1a] text-slate-200' : 'text-slate-200 hover:bg-[#1a1a1a] hover:text-slate-200'}
+        ${isActive ? 'bg-gradient-to-r from-zinc-800 to-zinc-900 text-slate-200' : 'text-slate-200 hover:bg-gradient-to-r from-zinc-800 to-zinc-900 hover:text-slate-200'}
         `}
-     >
+     > 
         <Link
         href={href}
         >

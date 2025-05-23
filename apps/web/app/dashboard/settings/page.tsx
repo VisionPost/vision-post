@@ -3,7 +3,7 @@ import { Button } from "@/components/ui/button";
 import { Card, CardContent } from "@/components/ui/card";
 import { Label } from "@/components/ui/label";
 import { AvatarImage } from "@radix-ui/react-avatar";
-import { Github, LayoutGrid, Upload, User, X } from "lucide-react";
+import { Github, LayoutGrid, LogOut, Upload, User, X } from "lucide-react";
 import { FaXTwitter } from "react-icons/fa6";
 
 export default function Settings() {
@@ -92,7 +92,25 @@ export default function Settings() {
          </Card>
         </section>
 
-        
+        <section>
+         <Card className="bg-gradient-to-b from-zinc-900 to-zinc-950 border-zinc-800">
+          <CardContent>
+           <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4">
+           <div>
+             <h3 className="font-medium text-lg text-slate-200">Sign Out</h3>
+             <p className="text-sm text-zinc-400 mt-1">Sign out from your account</p>
+            </div>
+            <Button
+            variant="destructive"
+            className="gap-2 bg-red-900/50 hover:bg-red-900 text-white border border-red-800/50"
+            >
+             <LogOut className="w-4 h-4" />
+             Sign Out
+            </Button>
+           </div>
+          </CardContent>
+         </Card>    
+        </section>
         </div>
     );
 };

@@ -57,7 +57,7 @@ export default function Settings() {
       
 
     return (
-        <div className="p-8 max-w-4xl mx-auto">
+        <div className="p-6 max-w-4xl mx-auto">
          <div className="flex items-center justify-start mb-8">
             <h1 className="text-2xl font-medium text-slate-200">Settings</h1>
          </div>    

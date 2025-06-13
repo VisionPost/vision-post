@@ -11,11 +11,17 @@ import { useEffect, useState } from "react";
 import { FaXTwitter } from "react-icons/fa6";
 
 export default function Settings() {
-    const session = useSession();
+    const {data: session, status} = useSession();
 
-    const avatarUrl = session.data?.user.image ?? "/logo.jpeg";
+    const avatarUrl = session?.user.image ?? "/logo.jpeg";
 
     const [twitterConnected, settwitterConnected] = useState(false);
+
+    useEffect(() => {
+        if(status === "authenticated" && session?.user.x_userName) {
+            settwitterConnected(true);
+        };
+    }, [session, status]);
 
     const handleConnectTwitter = async () => {
         const width = 600;
@@ -63,7 +69,7 @@ export default function Settings() {
              <Avatar className="w-24 h-24 border-4 border-black ring-2 ring-zinc-700 shadow-xl">
               <AvatarImage src={avatarUrl} alt="logo" />
               <AvatarFallback className="bg-gradient-to-br from-zinc-700 to-zinc-900">
-                {session.data?.user.name?.substring(0,2)}
+                {session?.user.name?.substring(0,2)}
               </AvatarFallback>   
              </Avatar>
              <Button 
@@ -78,11 +84,11 @@ export default function Settings() {
             <div className="flex-1 space-y-5 pt-4">
              <div>
               <Label className="text-sm text-zinc-400 mb-1 block">Display Name</Label>
-              <p className="font-medium text-lg text-slate-200">{session.data?.user.githubUsername}</p>
+              <p className="font-medium text-lg text-slate-200">{session?.user.githubUsername}</p>
              </div>
              <div>
               <Label className="text-sm text-zinc-400 mb-1 block">Email</Label>
-              <p className="font-medium text-slate-200">{session.data?.user.email}</p>
+              <p className="font-medium text-slate-200">{session?.user.email}</p>
              </div>
 
              <div className="pt-2">
@@ -112,10 +118,17 @@ export default function Settings() {
                </div>
                <div>
                 <h3 className="font-medium text-lg text-slate-200">Twitter</h3>
+                {twitterConnected ? (
+                <div className="flex items-center gap-1.5 text-green-400 text-sm mt-1">
+                  <Upload className="w-3.5 h-3.5" />
+                  <span>Connected</span>
+                </div>
+                ) : (
                 <div className="flex items-center gap-1.5 text-zinc-400 text-sm mt-1">
-                 <X className="w-3.5 h-3.5" />
-                 <span>Not connected</span>
-                    </div>
+                  <X className="w-3.5 h-3.5" />
+                  <span>Not connected</span>
+                </div>
+                )}
                </div>
               </div>
               <Button
@@ -123,7 +136,7 @@ export default function Settings() {
               variant="outline"
               className="bg-zinc-950 text-slate-200 border-zinc-800 hover:bg-zinc-800 hover:text-slate-200"
               >
-                Connect Twitter
+                {twitterConnected ? "Refresh Credentials" : "Connect Twitter"}
               </Button>
              </div>
           </CardContent>

@@ -1,12 +1,9 @@
-import { DefaultSession } from "next-auth";
+import { DefaultSession, DefaultUser } from "next-auth";
 
 declare module "next-auth" {
-  interface User {
-    id: string;
-    name: string | null;
-    email: string;
-    image: string | null;
-    githubUsername: string | null; 
+  interface User extends DefaultUser {
+    githubUsername?: string | null; 
+    x_userName?: string | null;
   }
 
   interface Session {

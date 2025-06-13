@@ -12,7 +12,7 @@ export default function TwitterPopupRedirect() {
 
   return (
     <div className="flex justify-center items-center min-h-screen">
-      <p className="text-white">Connected successfully. You can close this tab.</p>
+      <p className="text-white">Connected successfully.</p>
     </div>
   );
 }

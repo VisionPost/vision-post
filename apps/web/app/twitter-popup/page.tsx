@@ -7,7 +7,6 @@ import { Loader2 } from "lucide-react";
 export default function TwitterPopup() {
   useEffect(() => {
     signIn("twitter", {
-      redirect: false,
       callbackUrl: `${window.location.origin}/twitter-popup/redirect`,
     });
   }, []);

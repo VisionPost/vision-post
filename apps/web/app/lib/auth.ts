@@ -3,27 +3,22 @@ import { AuthOptions } from "next-auth";
 import GitHubProvider from "next-auth/providers/github";
 import TwitterProvider from "next-auth/providers/twitter";
 import { prisma } from "@repo/db";
-import { Prisma } from "@prisma/client";
-import { AdapterAccount } from "next-auth/adapters";
+import { AdapterAccount, AdapterUser } from "next-auth/adapters";
+
+const defaultAdapter = PrismaAdapter(prisma);
 
 export const authOptions: AuthOptions = {
     adapter: {
-        ...PrismaAdapter(prisma),
-        createUser: async (data: Prisma.UserCreateInput) => {
-            return prisma.user.create({
-                data: {
-                    name: data.name,
-                    email: data.email,
-                    image: data.image,
-                    githubUsername: data.githubUsername,
-                },
-            });
+        ...defaultAdapter,
+
+        async createUser(user: AdapterUser) {
+            const { emailVerified, ...filtered } = user
+            return defaultAdapter.createUser!(filtered);
         },
-        linkAccount: async (data: AdapterAccount) => {
-            const { token_type, scope, ...filteredData } = data;
-            return prisma.account.create({
-                data: filteredData,
-            });
+      
+        async linkAccount(account: AdapterAccount) {
+            const { token_type, scope, ...rest } = account;
+            return defaultAdapter.linkAccount!(rest);
         },
     },
     providers: [
@@ -35,6 +30,15 @@ export const authOptions: AuthOptions = {
                 scope: "read:user user:email repo read:org",
             },
           },
+          profile(profile) {
+            return {
+                id: profile.id.toString(),
+                name: profile.name,
+                email: profile.email,
+                image: profile.avatar_url,
+                githubUsername: profile.login,
+            };
+          },
         }),
         TwitterProvider({
             clientId: process.env.TWITTER_CLIENT_ID || "",
@@ -45,6 +49,15 @@ export const authOptions: AuthOptions = {
                     scope: "tweet.read tweet.write users.read offline.access",
                 },
             },
+            profile(profile) {
+                return {
+                  id:               profile.data.id.toString(),  
+                  name:             profile.data.name,
+                  email:            profile.data.email ?? "",
+                  image:            profile.data.profile_image_url,
+                  x_userName:       profile.data.username,
+                };
+              },
         }),
       ],
       secret: process.env.NEXTAUTH_SECRET,
@@ -54,18 +67,33 @@ export const authOptions: AuthOptions = {
                 const githubProfile = profile as { login: string };
                 user.githubUsername = githubProfile.login;
             };
-            console.log(user, account);
             return true;
         },
         async jwt({ token, user }) {
             if(user) {
-                token.githubUsername = user.githubUsername;
-            }
+                if(user.githubUsername) {
+                    token.githubUsername = user.githubUsername;
+                };
+                if(user.x_userName) {
+                    token.x_userName = user.x_userName;
+                };
+            };
+            if (!token.x_userName && token.sub) {
+                const dbUser = await prisma.user.findUnique({
+                  where: { id: token.sub },
+                  select: { x_userName: true }
+                });
+                if (dbUser?.x_userName) {
+                  token.x_userName = dbUser.x_userName;
+                }
+              }
             return token;
         },
         async session({ session, token }) {
             if(session.user && token.sub) {
                 session.user.id = token.sub;
+                session.user.githubUsername = token.githubUsername as string | null;
+                session.user.x_userName     = token.x_userName     as string | null;
             };
             return session;
         },
@@ -74,8 +102,15 @@ export const authOptions: AuthOptions = {
         strategy: "jwt",
       },     
       events: {
-        async createUser({ user }) {
-            console.log(user);
+        async linkAccount({ user, account, profile }) {
+            if(account.provider === "twitter" && profile) {
+                await prisma.user.update({
+                    where: { id: user.id },
+                    data: {
+                        x_userName: profile.x_userName,
+                    },
+                })
+            };
         },
       },
 };

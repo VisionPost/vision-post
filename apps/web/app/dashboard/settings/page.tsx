@@ -7,12 +7,15 @@ import { Label } from "@/components/ui/label";
 import { AvatarImage } from "@radix-ui/react-avatar";
 import { Github, LayoutGrid, LogOut, Upload, User, X } from "lucide-react";
 import { signOut, useSession } from "next-auth/react";
-import { useEffect } from "react";
+import { useEffect, useState } from "react";
 import { FaXTwitter } from "react-icons/fa6";
 
 export default function Settings() {
     const session = useSession();
+
     const avatarUrl = session.data?.user.image ?? "/logo.jpeg";
+
+    const [twitterConnected, settwitterConnected] = useState(false);
 
     const handleConnectTwitter = async () => {
         const width = 600;
@@ -25,16 +28,6 @@ export default function Settings() {
           "TwitterAuth",
           `width=${width},height=${height},left=${left},top=${top}`
         );
-      
-        const listener = (event: MessageEvent) => {
-          if (event.origin !== window.location.origin) return;
-          if (event.data?.type === "twitter-connected") {
-            window.removeEventListener("message", listener);
-            window.location.reload(); 
-          }
-        };
-      
-        window.addEventListener("message", listener);
       };
 
       useEffect(() => {
@@ -43,10 +36,7 @@ export default function Settings() {
             event.origin === window.location.origin &&
             event.data === "twitter-connected"
           ) {
-            // Option 1: Refresh session to reflect Twitter connection
-            window.location.reload();
-      
-            // Option 2 (better): Call your own API to check Twitter connection and update UI dynamically
+            settwitterConnected(true);
           }
         }
       
@@ -54,8 +44,6 @@ export default function Settings() {
         return () => window.removeEventListener("message", handleMessage);
       }, []);
       
-      
-
     return (
         <div className="p-6 max-w-4xl mx-auto">
          <div className="flex items-center justify-start mb-8">
@@ -90,7 +78,7 @@ export default function Settings() {
             <div className="flex-1 space-y-5 pt-4">
              <div>
               <Label className="text-sm text-zinc-400 mb-1 block">Display Name</Label>
-              <p className="font-medium text-lg text-slate-200">{session.data?.user.name}</p>
+              <p className="font-medium text-lg text-slate-200">{session.data?.user.githubUsername}</p>
              </div>
              <div>
               <Label className="text-sm text-zinc-400 mb-1 block">Email</Label>

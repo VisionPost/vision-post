@@ -75,7 +75,7 @@ export default function SidebarComponent() {
                 />
                </div> 
                <div className="flex flex-col">
-                <span className="text-sm font-medium text-slate-200">{session.data?.user.name}</span>
+                <span className="text-sm font-medium text-slate-200">{session.data?.user.githubUsername}</span>
                 <span className="text-xs text-[#888888]">{session.data?.user.email}</span>
                </div>
               </div>

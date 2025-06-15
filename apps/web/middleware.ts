@@ -4,6 +4,7 @@ import { NextRequest, NextResponse } from "next/server";
 export async function middleware(req: NextRequest) {
     try {
         const token = await getToken({ req });
+        console.log("frontendtoken:", token);
         const url = req.nextUrl.clone(); 
 
         if(!token || !token.sub) {

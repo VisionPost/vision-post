@@ -45,7 +45,7 @@ export async function authMiddleware (req: Request, res: Response, next: NextFun
             console.error("Token payload is invalid or missing required fields");
             res.status(401).json({ error: "Unauthorized: Invalid token payload" });
         };
-
+        console.log("backendpayload:", payload);
         req.user = payload;
         next();
     } catch (error) {

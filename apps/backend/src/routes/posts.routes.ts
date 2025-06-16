@@ -1,9 +1,9 @@
 import { Router } from "express";
-import { generatePost } from "../controllers/post.controllers";
+import { fetchPublishedPosts, generatePost } from "../controllers/post.controllers";
 
 const router = Router();
 
-router.get("fetch-posts", );
-router.post("/", generatePost);
+router.get("/fetch-posts", fetchPublishedPosts);
+router.post("/generate", generatePost);
 
 export default router;

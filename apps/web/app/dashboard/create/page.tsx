@@ -68,7 +68,7 @@ export default function Create() {
       setGeneratedPost("");
       setloadingPost(true);
       try {
-        const response = await fetch(`${process.env.NEXT_PUBLIC_BACKEND_URL}/generate-post`, {
+        const response = await fetch(`${process.env.NEXT_PUBLIC_BACKEND_URL}/posts/generate`, {
           method: "POST",
           credentials: "include",
           headers: {

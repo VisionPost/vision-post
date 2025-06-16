@@ -2,6 +2,24 @@ import { Request, Response } from "express";
 import { prisma } from "@repo/db";
 import { openai } from "./../index";
 
+export async function fetchPublishedPosts(req: Request, res: Response) {
+    try {
+        const { sub } = req.user;
+        const publishedPosts = await prisma.post.findMany({
+            where: {
+                userId: sub,
+            },
+        });
+        console.log(publishedPosts);
+        res.status(200).json({ posts: publishedPosts });
+    } catch (e) {
+        console.error('Server Error:', e);
+        res.status(500).json({ 
+            error: 'fetching posts failed',  
+        });
+    }
+};
+
 export async function generatePost(req: Request, res: Response) {
     try {
         const { sub } = req.user;
@@ -75,7 +93,10 @@ export async function generatePost(req: Request, res: Response) {
 
         const post = completion.choices[0].message.content;
         res.status(200).json({ post });
-    } catch (error) {
-        console.error(error);
+    } catch (e) {
+        console.error('Server Error:', e);
+        res.status(500).json({ 
+            message: 'post generation failed',  
+        });
     }
 };

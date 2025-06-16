@@ -32,7 +32,7 @@ app.use(express.json());
 app.use("/user", authMiddleware, userRoutes);
 app.use("/fetch-repositories", authMiddleware, reposRoutes);
 app.use("/fetch-contributions", authMiddleware, contributionsRoutes);
-app.use("/generate-post", authMiddleware, postRoutes);
+app.use("/posts", authMiddleware, postRoutes);
 app.use("/twitter-post", authMiddleware, twitterPostRoutes);
 
 app.listen(port, () => {

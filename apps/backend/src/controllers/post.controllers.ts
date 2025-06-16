@@ -74,7 +74,6 @@ export async function generatePost(req: Request, res: Response) {
         });
 
         const post = completion.choices[0].message.content;
-        console.log(post);
         res.status(200).json({ post });
     } catch (error) {
         console.error(error);

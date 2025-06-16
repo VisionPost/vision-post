@@ -1,11 +1,10 @@
-import { getServerSession } from "next-auth"
-import { authOptions } from "../lib/auth"
 
-export default async function Dashboard() {
-    const session = await getServerSession(authOptions);
+export default function Dashboard() {
+    const fetchPosts = async () => {
+        const response = await fetch(`${process.env.NEXT_PUBLIC_BACKEND_URL}/`)
+    };
+
     return (
-        <div className="text-white">     
-         Dashboard
-        </div>
+        <div></div>
     )
 };

@@ -8,6 +8,7 @@ import contributionsRoutes from "./routes/contributions.routes";
 import postRoutes from "./routes/posts.routes";
 import reposRoutes from "./routes/repos.routes";
 import OpenAI from "openai";
+import twitterPostRoutes from "./routes/twitterPost.routes";
 
 dotenv.config();
 const port = process.env.PORT || 8080;
@@ -32,6 +33,7 @@ app.use("/user", authMiddleware, userRoutes);
 app.use("/fetch-repositories", authMiddleware, reposRoutes);
 app.use("/fetch-contributions", authMiddleware, contributionsRoutes);
 app.use("/generate-post", authMiddleware, postRoutes);
+app.use("/twitter-post", authMiddleware, twitterPostRoutes);
 
 app.listen(port, () => {
     console.log(`Server is running on port ${port}`);

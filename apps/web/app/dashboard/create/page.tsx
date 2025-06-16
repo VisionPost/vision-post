@@ -33,11 +33,10 @@ export default function Create() {
     const [currentPage, setCurrentPage] = useState(1);
     const [generatedPost, setGeneratedPost] = useState<string>("");
     const [showPostEditor, setShowPostEditor] = useState(false);
+    const [posting, setPosting] = useState(false);
 
     const contributionsPerPage = 5;
     const totalPages = Math.ceil(contributions.length / contributionsPerPage);
-
-    const postUrl = `https://twitter.com/intent/tweet?text=${encodeURIComponent(generatedPost)}`;
 
     const fetchContributions = async () => {
         setLoading(true);
@@ -91,6 +90,33 @@ export default function Create() {
       } finally {
         setloadingPost(false);
       };
+    };
+
+    const postToTwitter = async (post: string) => {
+        setPosting(true);
+        try {
+          const response = await fetch(`${process.env.NEXT_PUBLIC_BACKEND_URL}/twitter-post`, {
+            method: "POST",
+            credentials: "include",
+            headers: {
+              "Content-Type": "application/json",
+            },
+            body: JSON.stringify({ post }),
+          });
+
+          const data = await response.json();
+
+          if(!response.ok) {
+            console.error("couldn't post to twitter", data.error);
+          } else {
+            console.log("Tweet posted:", data);
+            alert("✅ Tweet Posted");
+          };
+        } catch (e) {
+          console.error("Internal server error posting to twitter:", e);
+        } finally {
+          setPosting(false);
+        };
     };
 
     const getCurrentContributions = () => {
@@ -247,19 +273,15 @@ export default function Create() {
                       />
                       <div className="flex items-center justify-between">
                        <div className="text-sm text-gray-400">{generatedPost.length}/280</div>
-                       <a
-                       href={postUrl}
-                       target="_blank"
-                       rel="noopener noreferrer"
-                       >
                        <Button 
                        className="bg-slate-200 text-black hover:bg-slate-300 cursor-pointer border-0"
                        size="sm"
+                       disabled={posting}
+                       onClick={() => postToTwitter(generatedPost)}
                        >
-                        <FaXTwitter className="mr-1 h-4 w-4" />
+                        {posting ? <Loader2 className="mr-2 h-4 w-4 animate-spin" /> : <FaXTwitter className="mr-1 h-4 w-4" />}
                         Post to Twitter
                        </Button>
-                       </a>
                     </div>
                     </div>
 

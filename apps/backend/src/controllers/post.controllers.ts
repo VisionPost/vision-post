@@ -9,8 +9,12 @@ export async function fetchPublishedPosts(req: Request, res: Response) {
             where: {
                 userId: sub,
             },
+            select: {
+                id: true,
+                content: true,
+                postedAt: true,
+            },
         });
-        console.log(publishedPosts);
         res.status(200).json({ posts: publishedPosts });
     } catch (e) {
         console.error('Server Error:', e);
@@ -81,6 +85,7 @@ export async function generatePost(req: Request, res: Response) {
         \`\`\`
         - Analyze the contribution code diff to pull out one or two key changes—like a new feature, fix, or optimization—and weave them naturally into the tweet. Keep it subtle; no need for code snippets, just a casual mention of the technical side.  
         Avoid thanking yourself, and keep it under 280 characters.
+        Don't include the Contribution url in the output.
         `.trim();
 
         const completion = await openai.chat.completions.create({

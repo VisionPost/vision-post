@@ -5,7 +5,6 @@ export async function middleware(req: NextRequest) {
     try {
         const token = await getToken({ req });
         console.log("frontendtoken:", token);
-        const url = req.nextUrl.clone(); 
 
         if(!token || !token.sub) {
             return NextResponse.redirect(new URL('/signin', req.url));
@@ -41,25 +40,6 @@ export async function middleware(req: NextRequest) {
             return NextResponse.redirect(new URL('/error', req.url));
         };
 
-        const user = await response.json();
-        const {onBoardingStep, isOnboarded } = user;
-
-        if (isOnboarded && url.pathname.startsWith('/onboarding')) {
-            return NextResponse.redirect(new URL('/dashboard', req.url));
-        };
-
-        if (!isOnboarded) {
-            if (url.pathname.startsWith('/onboarding/')) {
-                const requestedStep = parseInt(url.pathname.split('/').pop() || '1');
-                
-                if (requestedStep !== onBoardingStep) {
-                    return NextResponse.redirect(new URL(`/onboarding/${onBoardingStep}`, req.url));
-                }
-            } else {
-                return NextResponse.redirect(new URL(`/onboarding/${onBoardingStep}`, req.url));
-            }
-        }
-
         return NextResponse.next();
     } catch (error) {        
         console.error("Middleware Error:", error);
@@ -70,7 +50,6 @@ export async function middleware(req: NextRequest) {
 export const config = {
     matcher: [
         '/dashboard/:path*', 
-        '/onboarding/:path*', 
     ],
 };
  

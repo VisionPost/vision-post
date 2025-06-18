@@ -36,7 +36,7 @@ export default async function Home() {
               </Link>
               ) : (
               <Link href="/signin">
-                <Button className="bg-white text-black hover:bg-gray-200 font-medium">Sign In</Button>
+                <Button className="bg-white text-black hover:bg-gray-200 font-medium cursor-pointer">Sign In</Button>
               </Link>
               )}
             </div>

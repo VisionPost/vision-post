@@ -13,6 +13,7 @@ import {
 import { SidebarLink } from "./SidebarLink";
 import { useSession } from "next-auth/react";
 import UpgradeCard from "./UpgradeCard";
+import Link from "next/link";
 
 export default function SidebarComponent() {
     const session = useSession();
@@ -22,6 +23,7 @@ export default function SidebarComponent() {
           <Sidebar className="border-r border-zinc-800 bg-[#000000] h-full">
             <SidebarHeader className="border-b border-zinc-800 p-4 bg-[#000000]">
              <div className="flex items-center gap-2">
+              <Link href="/">
              <div className="h-10 w-10 rounded-full overflow-hidden">
                <Image 
                 src="/logo.jpeg"
@@ -30,7 +32,8 @@ export default function SidebarComponent() {
                 height={40}
                 className="object-cover"
                 />
-               </div>  
+               </div>
+               </Link>  
               <span className="bg-gradient-to-r from-white to-gray-400 text-transparent bg-clip-text font-medium tracking-wider text-xl">VisionPost</span>
              </div>
             </SidebarHeader>
@@ -62,7 +65,7 @@ export default function SidebarComponent() {
                </SidebarLink> 
               </SidebarMenuItem>
              </SidebarMenu>
-             <div className="mt-40">
+             <div className="mt-44">
               <UpgradeCard />
              </div>     
             </SidebarContent>

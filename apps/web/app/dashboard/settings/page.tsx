@@ -13,7 +13,7 @@ import { FaXTwitter } from "react-icons/fa6";
 export default function Settings() {
     const {data: session, status} = useSession();
 
-    const avatarUrl = session?.user.image ?? "/logo.jpeg";
+    const avatarUrl = session?.user.image ?? "/globe.svg";
 
     const [twitterConnected, settwitterConnected] = useState(false);
 

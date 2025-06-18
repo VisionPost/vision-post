@@ -22,7 +22,7 @@ interface TwitterPostCardProps {
 
 function TwitterPostCard({ postContent }: TwitterPostCardProps) {
     const { data: session } = useSession();
-    const avatarUrl = session?.user.image ?? "/logo.jpeg";
+    const avatarUrl = session?.user.image ?? "/globe.svg";
 
     return (
         <Card className="bg-gradient-to-b from-zinc-900 to-zinc-950 border-zinc-900 rounded-sm">

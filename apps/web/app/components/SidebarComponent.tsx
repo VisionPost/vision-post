@@ -17,7 +17,7 @@ import Link from "next/link";
 
 export default function SidebarComponent() {
     const session = useSession();
-    const avatarUrl = session.data?.user.image ?? "/logo.jpeg";
+    const avatarUrl = session.data?.user.image ?? "/globe.svg";
 
     return(
           <Sidebar className="border-r border-zinc-800 bg-[#000000] h-full">

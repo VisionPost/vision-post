@@ -104,7 +104,7 @@ export const authOptions: AuthOptions = {
               },
             });
             if (acct) {
-              token.accessToken        = acct.access_token;
+              token.accessToken        = acct.access_token!;
               token.refreshToken       = acct.refresh_token!;
               token.accessTokenExpires = (acct.expires_at ?? 0) * 1000;
               token.providerAccountId  = acct.providerAccountId;

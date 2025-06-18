@@ -87,7 +87,7 @@ export const authOptions: AuthOptions = {
             token.accessToken        = account.access_token!;
             token.refreshToken       = account.refresh_token!;
             token.accessTokenExpires = (account.expires_at! * 1000) || 0;
-            token.providerAccountId  = account.providerAccountId;  // stash for DB updates
+            token.providerAccountId  = account.providerAccountId; 
           }
         
           if (!token.accessToken && token.sub) {

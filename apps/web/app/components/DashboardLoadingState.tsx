@@ -29,7 +29,7 @@ export default function DashboardLoadingState() {
               <motion.div
                 className="absolute inset-0 -translate-x-full bg-gradient-to-r from-transparent via-zinc-800/20 to-transparent"
                 animate={{
-                  translateX: ["100%", "100%", "-100%", "-100%"],
+                  x: ["100%", "100%", "-100%", "-100%"],
                 }}
                 transition={{
                   duration: 2,
@@ -62,7 +62,6 @@ export default function DashboardLoadingState() {
                   />
                 </div>
 
-                {/* Description Placeholder */}
                 <div className="space-y-2">
                   <motion.div
                     className="h-3 bg-zinc-800 rounded w-full"

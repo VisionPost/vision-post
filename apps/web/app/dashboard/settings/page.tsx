@@ -29,7 +29,7 @@ export default function Settings() {
         const left = window.screenX + (window.innerWidth - width) / 2;
         const top = window.screenY + (window.innerHeight - height) / 2;
       
-        const popup = window.open(
+        window.open(
           "/twitter-popup", 
           "TwitterAuth",
           `width=${width},height=${height},left=${left},top=${top}`

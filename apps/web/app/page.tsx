@@ -32,7 +32,7 @@ export default async function Home() {
             <div className="flex items-center">
               {session?.user ? (
               <Link href="/dashboard">
-                <Button className="bg-white text-black hover:bg-gray-200 font-medium">Dashboard</Button>
+                <Button className="bg-white text-black hover:bg-gray-200 font-medium cursor-pointer">Dashboard</Button>
               </Link>
               ) : (
               <Link href="/signin">

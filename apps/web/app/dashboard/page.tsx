@@ -98,13 +98,13 @@ export default function Dashboard() {
          {loadingPosts ? (
             <DashboardLoadingState />
           ) : (posts.length === 0) ? (
-            <div className="p-6 text-center bg-zinc-900 rounded-lg">
+            <div className="p-6 text-center bg-gradient-to-b from-zinc-900 to-zinc-950 rounded-lg">
             <Divide className="mx-auto mb-4 h-8 w-8 text-zinc-500" />
             <p className="text-lg mb-2">No posts yet</p>
             <p className="text-sm text-zinc-500 mb-4">Go to the create page and generate your first post!</p>
             <Link href="/dashboard/create" className="mt-5">
             <Button
-            className="text-black bg-slate-200 w-30 hover:bg-slate-300 font-bold transition-colors cursor-pointer"
+            className="text-black bg-slate-200 w-30 hover:bg-slate-300 font-medium transition-colors cursor-pointer"
             >
               Create
             </Button>
@@ -172,8 +172,8 @@ export default function Dashboard() {
             </Pagination>
           </div>
         )}
-          </div>
-         )}
-        </main>
+        </div>
+      )}
+      </main>
     )
 };

@@ -9,6 +9,8 @@ import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
 import { Pagination, PaginationContent, PaginationItem, PaginationLink } from "@/components/ui/pagination";
 import { Textarea } from "@/components/ui/textarea";
 import { FaXTwitter } from "react-icons/fa6";
+import { useSession } from "next-auth/react";
+import { useRouter } from "next/navigation";
 
 interface Contribution {
     type: string;
@@ -26,6 +28,10 @@ interface Contribution {
 };
 
 export default function Create() {
+    const router = useRouter();
+    const { data: session, status } = useSession();
+    const isReady = status === "authenticated" && session?.user.x_userName;
+
     const [loading, setLoading] = useState(false);
     const [loadingPost, setloadingPost] = useState(false);
     const [contributions, setContributions] = useState<Contribution[]>([]);
@@ -277,7 +283,14 @@ export default function Create() {
                        className="bg-slate-200 text-black hover:bg-slate-300 cursor-pointer border-0"
                        size="sm"
                        disabled={posting}
-                       onClick={() => postToTwitter(generatedPost)}
+                       onClick={() => {
+                        if(!isReady) {
+                          alert("Please connect your Twitter account to use this feature.");
+                          router.push("/dashboard/settings");
+                          return;
+                        };
+                        postToTwitter(generatedPost);
+                       }}
                        >
                         {posting ? <Loader2 className="mr-2 h-4 w-4 animate-spin" /> : <FaXTwitter className="mr-1 h-4 w-4" />}
                         Post to Twitter

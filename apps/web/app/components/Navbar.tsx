@@ -17,11 +17,14 @@ export default function Navbar() {
             />
            </div>
            <div className="flex items-center">
+            <a href="mailto:visionpost2301@gmail.com"
+            >
             <Button
-            className="hover:bg-[#1a1a1a] hover:text-white transition-colors"
+            className="hover:bg-[#1a1a1a] hover:text-white transition-colors cursor-pointer"
             >
               Help
             </Button>
+            </a>
            </div>
           </div>
           </div>

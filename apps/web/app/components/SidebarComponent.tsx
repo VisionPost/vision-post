@@ -12,6 +12,7 @@ import {
 } from "@/components/ui/sidebar";
 import { SidebarLink } from "./SidebarLink";
 import { useSession } from "next-auth/react";
+import UpgradeCard from "./UpgradeCard";
 
 export default function SidebarComponent() {
     const session = useSession();
@@ -60,9 +61,13 @@ export default function SidebarComponent() {
                 Settings
                </SidebarLink> 
               </SidebarMenuItem>
-             </SidebarMenu>     
+             </SidebarMenu>
+             <div className="mt-40">
+              <UpgradeCard />
+             </div>     
             </SidebarContent>
-            <SidebarFooter className="border-t border-zinc-800 p-4 bg-[#000000]">
+            
+            <SidebarFooter className="border-t border-zinc-800 p-4 bg-[#000000]"> 
              <div className="flex items-center">
               <div className="flex items-center gap-3">
                <div className="h-10 w-10 rounded-full overflow-hidden">

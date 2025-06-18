@@ -7,6 +7,8 @@ import { Card, CardContent } from "@/components/ui/card";
 import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
 import { Button } from "@/components/ui/button";
 import { useSession } from "next-auth/react";
+import Link from "next/link";
+import { Pagination, PaginationContent, PaginationItem, PaginationLink, PaginationNext, PaginationPrevious } from "@/components/ui/pagination";
 
 interface Post {
     id: string;
@@ -54,6 +56,12 @@ function TwitterPostCard({ postContent }: TwitterPostCardProps) {
 export default function Dashboard() {
     const [posts, setPosts] = useState<Post[]>([]);
     const [loadingPosts, setLoadingPosts] = useState(false);
+    const [currentPage, setCurrentPage] = useState(1)
+
+    const postsPerPage = 6
+    const totalPages = Math.ceil(posts.length / postsPerPage)
+    const startIndex = (currentPage - 1) * postsPerPage
+    const currentPosts = posts.slice(startIndex, startIndex + postsPerPage)
 
     const fetchPosts = async () => {
         setLoadingPosts(true);
@@ -72,7 +80,8 @@ export default function Dashboard() {
                 return;
             };
             console.log(data.posts);
-           setPosts(data.posts);
+            const reversedPosts = [...data.posts].reverse(); 
+           setPosts(reversedPosts);
         } catch (e) {
             console.error("Error fetching commits: ", e);
         } finally {
@@ -81,7 +90,7 @@ export default function Dashboard() {
     };
 
     useEffect(() => {
-
+        fetchPosts();
     }, []);
 
     return (
@@ -91,8 +100,15 @@ export default function Dashboard() {
           ) : (posts.length === 0) ? (
             <div className="p-6 text-center bg-zinc-900 rounded-lg">
             <Divide className="mx-auto mb-4 h-8 w-8 text-zinc-500" />
-            <p className="text-lg">No posts yet</p>
-            <p className="text-sm text-zinc-500">Generate your first post!</p>
+            <p className="text-lg mb-2">No posts yet</p>
+            <p className="text-sm text-zinc-500 mb-4">Go to the create page and generate your first post!</p>
+            <Link href="/dashboard/create" className="mt-5">
+            <Button
+            className="text-black bg-slate-200 w-30 hover:bg-slate-300 font-bold transition-colors cursor-pointer"
+            >
+              Create
+            </Button>
+            </Link>
           </div>
           ) : (
           <div>  
@@ -102,10 +118,60 @@ export default function Dashboard() {
           </div>
 
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 mb-8">
-            {posts.map((post) => (
+            {currentPosts.map((post) => (
                 <TwitterPostCard key={post.id} postContent={post} />
             ))}
           </div>
+
+          {totalPages > 1 && (
+          <div className="flex justify-center">
+            <Pagination>
+              <PaginationContent>
+                <PaginationItem>
+                  <PaginationPrevious
+                    href="#"
+                    onClick={(e) => {
+                      e.preventDefault()
+                      if (currentPage > 1) setCurrentPage(currentPage - 1)
+                    }}
+                    className={`text-gray-400 hover:text-white ${currentPage === 1 ? "pointer-events-none opacity-50" : ""}`}
+                  />
+                </PaginationItem>
+
+                {Array.from({ length: totalPages }, (_, i) => i + 1).map((page) => (
+                  <PaginationItem key={page}>
+                    <PaginationLink
+                      href="#"
+                      onClick={(e) => {
+                        e.preventDefault()
+                        setCurrentPage(page)
+                      }}
+                      isActive={currentPage === page}
+                      className={`${
+                        currentPage === page
+                          ? "bg-zinc-900-600 text-slate-200 border-zinc-800"
+                          : "text-gray-400 hover:text-white hover:bg-gray-800"
+                      }`}
+                    >
+                      {page}
+                    </PaginationLink>
+                  </PaginationItem>
+                ))}
+
+                <PaginationItem>
+                  <PaginationNext
+                    href="#"
+                    onClick={(e) => {
+                      e.preventDefault()
+                      if (currentPage < totalPages) setCurrentPage(currentPage + 1)
+                    }}
+                    className={`text-gray-400 hover:text-white ${currentPage === totalPages ? "pointer-events-none opacity-50" : ""}`}
+                  />
+                </PaginationItem>
+              </PaginationContent>
+            </Pagination>
+          </div>
+        )}
           </div>
          )}
         </main>

@@ -4,7 +4,8 @@
   "scripts": {
     "build": "tsc -b",
     "dev": "tsc -b && node dist/index.js",
-    "start": "node dist/index.js"
+    "start": "node dist/index.js",
+    "vercel-build": "npm run build"
   },
   "dependencies": {
     "@repo/db": "*",

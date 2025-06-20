@@ -1,7 +1,5 @@
 {
     "version": 2,
-    "installCommand": "cd ../.. && npm install",
-    "buildCommand": "cd ../.. && npm run build --filter=backend",
     "builds": [
       {
         "src": "dist/index.js",

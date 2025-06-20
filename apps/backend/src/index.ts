@@ -11,7 +11,6 @@ import OpenAI from "openai";
 import twitterPostRoutes from "./routes/twitterPost.routes";
 
 dotenv.config();
-const port = process.env.PORT || 8080;
 
 const app = express();
 
@@ -20,7 +19,9 @@ export const openai = new OpenAI({
 });
 
 app.use(cors({
-    origin: ["http://localhost:3000"],
+    origin: process.env.NODE_ENV === 'production'
+    ? ["https://visionpost.dev", "https://www.visionpost.dev"]
+    : ["http://localhost:3000"],
     credentials: true,
     methods: ["GET", "POST"],
     allowedHeaders: ["Authorization", "Content-Type"],
@@ -29,12 +30,21 @@ app.use(cors({
 app.use(cookieParser());
 app.use(express.json());
 
+app.get("/", (req, res) => {
+    res.json({ message: "Backend API is running!", timestamp: new Date().toISOString() });
+});
+
 app.use("/user", authMiddleware, userRoutes);
 app.use("/fetch-repositories", authMiddleware, reposRoutes);
 app.use("/fetch-contributions", authMiddleware, contributionsRoutes);
 app.use("/posts", authMiddleware, postRoutes);
 app.use("/twitter-post", authMiddleware, twitterPostRoutes);
 
-app.listen(port, () => {
-    console.log(`Server is running on port ${port}`);
-});
+if(process.env.NODE_ENV !== 'production') {
+    const port = process.env.PORT || 8080;
+    app.listen(port, () => {
+        console.log(`Server is running on port ${port}`);
+    });
+};
+
+export default app;

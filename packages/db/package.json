@@ -3,7 +3,8 @@
   "type": "module",
   "main": "index.ts",
   "scripts": {
-    "prisma:generate": "prisma generate"
+    "prisma:generate": "prisma generate",
+    "postinstall": "prisma generate"
   },
   "exports": {
     ".": "./index.ts"

@@ -10,8 +10,10 @@
   "dependencies": {
     "@repo/db": "*",
     "@types/cors": "^2.8.17",
+    "@types/dotenv": "^6.1.1",
     "cookie-parser": "^1.4.7",
     "cors": "^2.8.5",
+    "dotenv": "^16.0.3",
     "express": "^4.21.2",
     "jose": "^6.0.10",
     "openai": "^4.95.1"

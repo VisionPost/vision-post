@@ -265,6 +265,7 @@ export default async function Home() {
           <div className="grid md:grid-cols-4 gap-8">
             <div className="space-y-4">
               <div className="flex items-center space-x-2">
+              <Link href="/">
               <div className="h-10 w-10 rounded-full overflow-hidden">
                   <Image 
                   src="/logo.jpeg"
@@ -274,6 +275,7 @@ export default async function Home() {
                   className="object-cover"
                   />
                   </div>
+                  </Link>  
                 <span className="text-xl font-medium">VisionPost</span>
               </div>
               <p className="text-gray-400 font-medium">

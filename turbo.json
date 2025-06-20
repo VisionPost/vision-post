@@ -15,7 +15,7 @@
         "TWITTER_CLIENT_ID",
         "TWITTER_CLIENT_SECRET",
         "PORT",
-        "OPENAI_KEY",
+        "OPENAI_API_KEY",
         "DATABASE_URL"
       ]
     },
@@ -37,7 +37,7 @@
         "TWITTER_CLIENT_ID",
         "TWITTER_CLIENT_SECRET",
         "PORT",
-        "OPENAI_KEY",
+        "OPENAI_API_KEY",
         "DATABASE_URL"
       ]
     }

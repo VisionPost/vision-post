@@ -16,7 +16,8 @@
         "TWITTER_CLIENT_SECRET",
         "PORT",
         "OPENAI_API_KEY",
-        "DATABASE_URL"
+        "DATABASE_URL",
+        "NODE_ENV"
       ]
     },
     "lint": {
@@ -38,7 +39,8 @@
         "TWITTER_CLIENT_SECRET",
         "PORT",
         "OPENAI_API_KEY",
-        "DATABASE_URL"
+        "DATABASE_URL",
+        "NODE_ENV"
       ]
     }
   }

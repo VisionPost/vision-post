@@ -83,7 +83,7 @@ export default function Dashboard() {
             const reversedPosts = [...data.posts].reverse(); 
            setPosts(reversedPosts);
         } catch (e) {
-            console.error("Error fetching commits: ", e);
+            console.error("Error fetching posts: ", e);
         } finally {
             setLoadingPosts(false);
         };

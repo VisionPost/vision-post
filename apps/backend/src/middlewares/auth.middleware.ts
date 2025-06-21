@@ -5,7 +5,12 @@ import * as crypto from "crypto";
 export async function authMiddleware (req: Request, res: Response, next: NextFunction): Promise<void> {
     const secret = process.env.NEXTAUTH_SECRET;
 
-    const cookieToken = req.cookies["next-auth.session-token"];
+    const cookieName = 
+        process.env.NODE_ENV === "production"
+        ? "__Secure-next-auth.session-token"
+        : "next-auth.session-token";
+
+    const cookieToken = req.cookies[cookieName];
 
     const authHeader = req.headers.authorization?.split(' ')[1];
 

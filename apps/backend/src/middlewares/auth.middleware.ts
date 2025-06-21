@@ -11,6 +11,7 @@ export async function authMiddleware (req: Request, res: Response, next: NextFun
         : "next-auth.session-token";
 
     console.log("cookieName: ", cookieName);
+    console.log("incoming cookies", req.cookies);
 
     const cookieToken = req.cookies[cookieName];
     console.log("cookieToken",cookieToken);

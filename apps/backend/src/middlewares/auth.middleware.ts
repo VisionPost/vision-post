@@ -10,11 +10,16 @@ export async function authMiddleware (req: Request, res: Response, next: NextFun
         ? "__Secure-next-auth.session-token"
         : "next-auth.session-token";
 
+    console.log("cookieName: ", cookieName);
+
     const cookieToken = req.cookies[cookieName];
+    console.log("cookieToken",cookieToken);
 
     const authHeader = req.headers.authorization?.split(' ')[1];
+    console.log("header", authHeader)
 
     const token = cookieToken || authHeader;
+    console.log("final token", token)
 
     if(!token) {
         res.status(401).json({ error: "Unauthorized: No token provided"});

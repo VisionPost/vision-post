@@ -68,7 +68,7 @@ export async function generatePost(req: Request, res: Response) {
 
         const userMessage = `You're a developer who just made the following code contribution and want to share it on Twitter. Write a concise, energetic, and non-generic tweet in first-person voice (as if you're tweeting it yourself). Use Emojis. Focus on what was done, why it matters, and add a relevant hashtag.
 
-        **Key Rule**: Always use varied language and avoid repetitive phrasing. Start each tweet with a different action verb or phrase—think "rolled out," "dropped," "launched," "shipped," "boosted," or similar vibes—to keep it fresh and engaging. Avoid overusing any single word or phrase.
+        **Key Rule**: Always use varied language and avoid repetitive phrasing. Start each tweet with a different action verb or phrase—think "rolled out," "dropped," "launched," "shipped," "boosted," or similar vibes—to keep it fresh and engaging. Avoid overusing any single word or phrase, Don't use EM dashes.
 
         Contribution details:
         - Title: ${title}

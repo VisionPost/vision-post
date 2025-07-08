@@ -10,17 +10,11 @@ export async function authMiddleware (req: Request, res: Response, next: NextFun
         ? "__Secure-next-auth.session-token"
         : "next-auth.session-token";
 
-    console.log("cookieName: ", cookieName);
-    console.log("incoming cookies", req.cookies);
-
     const cookieToken = req.cookies[cookieName];
-    console.log("cookieToken",cookieToken);
 
     const authHeader = req.headers.authorization?.split(' ')[1];
-    console.log("header", authHeader)
 
     const token = cookieToken || authHeader;
-    console.log("final token", token)
 
     if(!token) {
         res.status(401).json({ error: "Unauthorized: No token provided"});
@@ -56,7 +50,6 @@ export async function authMiddleware (req: Request, res: Response, next: NextFun
             console.error("Token payload is invalid or missing required fields");
             res.status(401).json({ error: "Unauthorized: Invalid token payload" });
         };
-        console.log("backendpayload:", payload);
         req.user = payload;
         next();
     } catch (error) {

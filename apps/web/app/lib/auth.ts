@@ -63,6 +63,7 @@ export const authOptions: AuthOptions = {
       secret: process.env.NEXTAUTH_SECRET,
       callbacks: {
         async signIn({ user, account, profile}) {
+          console.log("signin", user);
             if(account?.provider === "github" && profile) {
                 const githubProfile = profile as { login: string };
                 user.githubUsername = githubProfile.login;

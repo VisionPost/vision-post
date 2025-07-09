@@ -5,10 +5,10 @@ import { Button } from "@/components/ui/button"
 import { CheckCircle, ArrowRight, RefreshCw, XCircle } from "lucide-react"
 import Link from "next/link"
 import { useSearchParams } from "next/navigation"
+import { Suspense } from "react";
 
-export default function PaymentReturn() {
+function PaymentReturnContent() {
   const searchParams = useSearchParams();
-
   const status = searchParams.get('status');
 
   return (
@@ -170,4 +170,12 @@ export default function PaymentReturn() {
       </div>
     </div>
   )
-}
+};
+
+export default function PaymentReturn() {
+  return (
+  <Suspense fallback={<div className="text-white">Loading...</div>}>
+    <PaymentReturnContent />
+  </Suspense>
+  );
+};

@@ -39,28 +39,61 @@ export async function webhookHandler(req: Request, res: Response) {
 
                 case "subscription.on_hold":
                     await prisma.subscription.update({
-                        where: { SubscriptionId: eventData.subscription_id },
-                        data: { status: "on_hold" },
+                        where: { userId: user.id },
+                        data: { 
+                            SubscriptionId: eventData.subscription_id,
+                            status: "on_hold", 
+                            currentPeriodStart: new Date(eventData.previous_billing_date),
+                            currentPeriodEnd: new Date(eventData.next_billing_date),
+                            cancelAtPeriodEnd: eventData.cancel_at_next_billing_date,
+                        }
                     });
                     break;    
                 
                 case "subscription.paused":
                     await prisma.subscription.update({
-                        where: { SubscriptionId: eventData.subscription_id },
-                        data: { status: "paused" }
+                        where: { userId: user.id },
+                        data: { 
+                            SubscriptionId: eventData.subscription_id,
+                            status: "paused",
+                            currentPeriodStart: new Date(eventData.previous_billing_date),
+                            currentPeriodEnd: new Date(eventData.next_billing_date),
+                            cancelAtPeriodEnd: eventData.cancel_at_next_billing_date, 
+                        },
                     });
                     break;
                 case "subscription.failed":
-                    await prisma.subscription.update({
-                        where: { SubscriptionId: eventData.subscription_id },
-                        data: { status: "failed" }
+                    await prisma.subscription.upsert({
+                        where: { userId: user.id },
+                        update: {
+                            SubscriptionId: eventData.subscription_id,
+                            status: "failed",
+                            currentPeriodStart: new Date(eventData.previous_billing_date),
+                            currentPeriodEnd: new Date(eventData.next_billing_date),
+                            cancelAtPeriodEnd: eventData.cancel_at_next_billing_date,
+                        },
+                        create: {
+                            SubscriptionId: eventData.subscription_id,
+                            status: "active",
+                            planId: eventData.product_id,
+                            currentPeriodStart: new Date(eventData.previous_billing_date),
+                            currentPeriodEnd: new Date(eventData.next_billing_date),
+                            cancelAtPeriodEnd: eventData.cancel_at_next_billing_date,
+                            userId: user.id,
+                        },
                     });
                     break;
                       
                 case "subscription.expired":
                     await prisma.subscription.update({
-                        where: { SubscriptionId: eventData.subscription_id },
-                        data: { status: "expired" }
+                        where: { userId: user.id },
+                        data: { 
+                            SubscriptionId: eventData.subscription_id,
+                            status: "expired",
+                            currentPeriodStart: new Date(eventData.previous_billing_date),
+                            currentPeriodEnd: new Date(eventData.next_billing_date),
+                            cancelAtPeriodEnd: eventData.cancel_at_next_billing_date,
+                         },
                     });
                     break;    
             };
